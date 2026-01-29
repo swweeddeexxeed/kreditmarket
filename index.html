@@ -4,11 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>КредитMarket | Финансы и технологии</title>
-    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-</head>
-<style>
+    <style>
 /* Базовые стили */
 * {
     margin: 0;
@@ -37,8 +35,8 @@ body {
     background: linear-gradient(135deg, #ffffff 0%, #fff5f0 100%);
     color: var(--secondary);
     min-height: 100vh;
-    overflow: hidden;
     position: relative;
+    overflow-x: hidden;
 }
 
 /* Фон с сеткой */
@@ -118,6 +116,9 @@ body {
     justify-content: center;
     padding: 20px;
     position: relative;
+    width: 100%;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 /* Центральный логотип */
@@ -1433,15 +1434,44 @@ body {
     overflow-y: auto;
 }
 
-/* Адаптивность */
+/* Адаптивность ДЛЯ МОБИЛЬНЫХ */
 @media (max-width: 768px) {
-    .menu-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
+    /* Убираем перекрытие для прокрутки */
+    body {
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+    
+    .main-screen {
+        min-height: 100vh;
+        height: auto;
+        padding: 20px 15px;
+        padding-bottom: 100px;
+        justify-content: flex-start;
+        overflow-y: visible;
+    }
+    
+    .center-logo {
+        margin-bottom: 30px;
+    }
+    
+    .logo-orb {
+        width: 120px;
+        height: 120px;
+        margin-bottom: 20px;
+    }
+    
+    .logo-k {
+        font-size: 3rem;
     }
     
     .logo-title {
-        font-size: 2.5rem;
+        font-size: 2.2rem;
+    }
+    
+    .menu-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
     }
     
     .window {
@@ -1458,7 +1488,7 @@ body {
     }
     
     .products-grid {
-        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
         gap: 15px;
     }
     
@@ -1469,32 +1499,86 @@ body {
     .contacts-grid {
         grid-template-columns: 1fr;
     }
+    
+    .status-bar {
+        bottom: 15px;
+        padding: 12px 20px;
+        gap: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 90%;
+    }
+    
+    .status-time, .status-phone {
+        font-size: 0.9rem;
+    }
 }
 
 @media (max-width: 480px) {
-    .menu-grid {
-        grid-template-columns: 1fr;
-        max-width: 300px;
+    .main-screen {
+        padding: 15px 10px;
+        padding-bottom: 120px;
     }
     
-    .logo-title {
-        font-size: 2rem;
+    .center-logo {
+        margin-bottom: 25px;
     }
     
     .logo-orb {
-        width: 120px;
-        height: 120px;
+        width: 100px;
+        height: 100px;
+        margin-bottom: 15px;
     }
     
     .logo-k {
-        font-size: 3rem;
+        font-size: 2.5rem;
+    }
+    
+    .logo-title {
+        font-size: 1.8rem;
+    }
+    
+    .logo-subtitle {
+        font-size: 0.9rem;
+        letter-spacing: 2px;
+    }
+    
+    .menu-grid {
+        grid-template-columns: 1fr;
+        max-width: 280px;
+        gap: 12px;
+    }
+    
+    .window-icon {
+        padding: 18px 15px;
+    }
+    
+    .icon-wrapper {
+        width: 65px;
+        height: 65px;
+        font-size: 1.8rem;
     }
     
     .status-bar {
+        bottom: 10px;
+        padding: 10px 15px;
         flex-direction: column;
-        gap: 10px;
-        padding: 15px;
-        border-radius: 25px;
+        gap: 8px;
+        width: 85%;
+    }
+    
+    .status-time, .status-phone {
+        font-size: 0.85rem;
+    }
+    
+    .status-actions {
+        gap: 8px;
+    }
+    
+    .status-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 0.9rem;
     }
     
     .calculator-buttons {
@@ -1505,6 +1589,55 @@ body {
     .calc-btn {
         padding: 15px;
         font-size: 1.1rem;
+    }
+    
+    /* Скрываем ассистента на очень маленьких экранах */
+    .ai-assistant {
+        display: none;
+    }
+}
+
+/* Для очень маленькой высоты экрана */
+@media (max-height: 600px) {
+    .center-logo {
+        margin-bottom: 20px;
+    }
+    
+    .logo-orb {
+        width: 80px;
+        height: 80px;
+        margin-bottom: 10px;
+    }
+    
+    .logo-k {
+        font-size: 2rem;
+    }
+    
+    .logo-title {
+        font-size: 1.5rem;
+    }
+    
+    .logo-subtitle {
+        font-size: 0.8rem;
+    }
+    
+    .menu-grid {
+        gap: 10px;
+    }
+    
+    .window-icon {
+        padding: 15px 10px;
+    }
+    
+    .icon-wrapper {
+        width: 55px;
+        height: 55px;
+        font-size: 1.5rem;
+    }
+    
+    .status-bar {
+        bottom: 8px;
+        padding: 8px 12px;
     }
 }
 
@@ -1652,7 +1785,7 @@ body {
             </div>
         </a>
           <a href="profile.html" class="window-link">
-            <div class="window-icon" data-window="about">
+            <div class="window-icon" data-window="profile">
                 <div class="icon-wrapper">
                     <i class="fas fa-user"></i>
                 </div>
@@ -1664,7 +1797,7 @@ body {
         
         <!-- Панель статуса -->
         <div class="status-bar">
-            <div class="status-time">14:30</div>
+            <div class="status-time" id="current-time">14:30</div>
             <div class="status-phone">+992 92 857 74 47</div>
             <div class="status-actions">
                 <button class="status-btn"><i class="fas fa-search"></i></button>
@@ -1992,7 +2125,7 @@ body {
         </div>
     </div>
 
-    <script src="script.js">
+    <script>
       // Данные товаров
 const products = [
     {
@@ -2436,13 +2569,15 @@ aiAssistant.addEventListener('click', () => {
 
 // Обновление времени
 function updateTime() {
-    const timeElement = document.querySelector('.status-time');
-    const now = new Date();
-    const timeString = now.toLocaleTimeString('ru-RU', {
-        hour: '2-digit',
-        minute: '2-digit'
-    });
-    timeElement.textContent = timeString;
+    const timeElement = document.getElementById('current-time');
+    if (timeElement) {
+        const now = new Date();
+        const timeString = now.toLocaleTimeString('ru-RU', {
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+        timeElement.textContent = timeString;
+    }
 }
 
 setInterval(updateTime, 60000);
