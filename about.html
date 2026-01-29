@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>О нас — КредитMarket</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #ffffff;
+            color: #000000;
+        }
+        
+        /* Шапка */
+        .header {
+            background-color: #ffffff;
+            border-bottom: 2px solid #ff6600;
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: #000000;
+        }
+        
+        .logo span {
+            color: #ff6600;
+        }
+        
+        .tagline {
+            font-size: 14px;
+            color: #666;
+            letter-spacing: 1px;
+        }
+        
+        /* Навигация */
+        .nav {
+            display: flex;
+            background-color: #f8f8f8;
+            border-radius: 8px;
+            padding: 5px;
+            margin-top: 10px;
+        }
+        
+        .nav-item {
+            padding: 12px 20px;
+            text-decoration: none;
+            color: #000000;
+            font-weight: 500;
+            border-radius: 6px;
+            transition: all 0.3s;
+            margin: 0 2px;
+        }
+        
+        .nav-item:hover {
+            background-color: #fff5e6;
+            color: #ff6600;
+        }
+        
+        .nav-item.active {
+            background-color: #ff6600;
+            color: white;
+        }
+        
+        /* Контент "О нас" */
+        .about-container {
+            padding: 40px 0;
+            min-height: 70vh;
+        }
+        
+        .about-title {
+            font-size: 32px;
+            margin-bottom: 30px;
+            color: #000000;
+            border-left: 5px solid #ff6600;
+            padding-left: 15px;
+        }
+        
+        /* Герой-секция */
+        .hero-section {
+            background: linear-gradient(135deg, #fff5e6 0%, #ffebcc 100%);
+            border-radius: 16px;
+            padding: 50px;
+            margin-bottom: 50px;
+            display: flex;
+            align-items: center;
+            border: 1px solid #ffddb3;
+        }
+        
+        .hero-content {
+            flex: 1;
+        }
+        
+        .hero-title {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        .hero-title span {
+            color: #ff6600;
+        }
+        
+        .hero-description {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 30px;
+        }
+        
+        .hero-image {
+            flex: 0 0 300px;
+            height: 250px;
+            background-color: #ff6600;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 100px;
+            color: white;
+            margin-left: 40px;
+        }
+        
+        /* Статистика */
+        .stats-section {
+            display: flex;
+            justify-content: space-around;
+            background-color: #222;
+            border-radius: 16px;
+            padding: 40px 20px;
+            margin: 50px 0;
+            color: white;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 48px;
+            font-weight: 700;
+            color: #ff6600;
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            font-size: 16px;
+            color: #ccc;
+        }
+        
+        /* Миссия и ценности */
+        .mission-section {
+            margin: 50px 0;
+        }
+        
+        .section-title {
+            font-size: 28px;
+            margin-bottom: 30px;
+            color: #333;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background-color: #ff6600;
+        }
+        
+        .mission-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        
+        .mission-text {
+            font-size: 17px;
+            line-height: 1.7;
+            color: #555;
+        }
+        
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .value-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eee;
+            transition: all 0.3s;
+        }
+        
+        .value-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border-color: #ff6600;
+        }
+        
+        .value-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+            color: #ff6600;
+        }
+        
+        .value-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #000;
+        }
+        
+        .value-description {
+            color: #666;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+        
+        /* Команда */
+        .team-section {
+            margin: 60px 0;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 30px;
+        }
+        
+        .team-member {
+            text-align: center;
+        }
+        
+        .member-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background-color: #f5f5f5;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            color: #ff6600;
+            border: 3px solid #ffddb3;
+        }
+        
+        .member-name {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #000;
+        }
+        
+        .member-position {
+            color: #ff6600;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+        
+        .member-bio {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        /* CTA секция */
+        .cta-section {
+            background: linear-gradient(135deg, #ff6600 0%, #ff8533 100%);
+            border-radius: 16px;
+            padding: 50px;
+            text-align: center;
+            color: white;
+            margin-top: 60px;
+        }
+        
+        .cta-title {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+        
+        .cta-description {
+            font-size: 18px;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .cta-button {
+            background-color: white;
+            color: #ff6600;
+            border: none;
+            padding: 16px 40px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+        
+        .cta-button:hover {
+            background-color: #222;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Футер */
+        .footer {
+            background-color: #222;
+            color: white;
+            padding: 40px 0;
+            margin-top: 60px;
+        }
+        
+        .footer-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-title {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #ff6600;
+        }
+        
+        .footer-links a {
+            display: block;
+            color: #ccc;
+            text-decoration: none;
+            margin-bottom: 10px;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: #ff6600;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            margin-top: 20px;
+            border-top: 1px solid #444;
+            color: #aaa;
+            font-size: 14px;
+        }
+        
+        @media (max-width: 992px) {
+            .hero-section {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .hero-image {
+                margin-left: 0;
+                margin-top: 30px;
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .mission-content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .top-bar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .tagline {
+                margin-top: 5px;
+            }
+            
+            .nav {
+                overflow-x: auto;
+            }
+            
+            .hero-title {
+                font-size: 28px;
+            }
+            
+            .stats-section {
+                flex-direction: column;
+                gap: 30px;
+            }
+            
+            .hero-section, .cta-section {
+                padding: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Шапка сайта -->
+    <header class="header">
+        <div class="container">
+            <div class="top-bar">
+                <div class="logo">Кредит<span>Market</span></div>
+                <div class="tagline">ФИНАНСЫ × ТЕХНОЛОГИИ</div>
+            </div>
+            
+            <nav class="nav">
+                  <a href="index.html" class="nav-item ">Главная</a>
+                   <a href="catalog.html" class="nav-item ">Каталог</a>
+                <a href="credits.html" class="nav-item">Кредиты</a>
+                <a href="calculator.html" class="nav-item ">Калькулятор</a>
+                <a href="cart.html" class="nav-item">Корзина</a>
+                <a href="about.html" class="nav-item  active" >О нас</a>
+                <a href="contacts.html" class="nav-item">Контакты</a>
+                    <a href="profile.html" class="nav-item">Профиль</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Основной контент -->
+    <main class="container">
+        <div class="about-container">
+            <h1 class="about-title">О компании КредитMarket</h1>
+            
+            <!-- Герой-секция -->
+            <section class="hero-section">
+                <div class="hero-content">
+                    <h2 class="hero-title">Мы меняем <span>финансовый мир</span> к лучшему</h2>
+                    <p class="hero-description">
+                        КредитMarket — это современная финансовая платформа, объединяющая передовые технологии 
+                        и глубокие знания в области кредитования. Мы создаем экосистему, где каждый может найти 
+                        оптимальное финансовое решение, соответствующее его потребностям и возможностям.
+                    </p>
+                </div>
+                <div class="hero-image">
+                    🚀
+                </div>
+            </section>
+            
+            <!-- Статистика -->
+            <section class="stats-section">
+                <div class="stat-item">
+                    <div class="stat-number">5+</div>
+                    <div class="stat-label">Лет на рынке</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">50K+</div>
+                    <div class="stat-label">Довольных клиентов</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">15+</div>
+                    <div class="stat-label">Банков-партнеров</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">10M+</div>
+                    <div class="stat-label">Выданных кредитов</div>
+                </div>
+            </section>
+            
+            <!-- Миссия и ценности -->
+            <section class="mission-section">
+                <h2 class="section-title">Наша миссия и ценности</h2>
+                
+                <div class="mission-content">
+                    <div class="mission-text">
+                        <p>Наша миссия — сделать финансовые услуги доступными, понятными и удобными для каждого.</p>
+                        <p>Мы стремимся разрушить барьеры, которые мешают людям получать качественные финансовые продукты, и создаем цифровую среду, где выбор кредита становится простым, быстрым и безопасным процессом.</p>
+                        <p>С 2019 года мы помогаем нашим клиентам реализовывать их мечты и планы, предоставляя доступ к лучшим финансовым решениям на рынке.</p>
+                    </div>
+                    
+                    <div class="mission-text">
+                        <p>В основе нашей работы лежат принципы прозрачности, ответственности и инноваций.</p>
+                        <p>Мы не просто агрегатор кредитных предложений — мы финансовый навигатор, который помогает принять взвешенное решение, учитывая все особенности и риски.</p>
+                        <p>Наша команда состоит из экспертов в области финансов, технологий и customer experience, объединенных общей целью — изменить отношение людей к кредитованию.</p>
+                    </div>
+                </div>
+                
+                <div class="values-grid">
+                    <div class="value-card">
+                        <div class="value-icon">🔍</div>
+                        <h3 class="value-title">Прозрачность</h3>
+                        <p class="value-description">Честные условия, отсутствие скрытых комиссий и полная информация о продуктах.</p>
+                    </div>
+                    
+                    <div class="value-card">
+                        <div class="value-icon">⚡</div>
+                        <h3 class="value-title">Скорость</h3>
+                        <p class="value-description">Онлайн-оформление, мгновенные решения и быстрая выдача денежных средств.</p>
+                    </div>
+                    
+                    <div class="value-card">
+                        <div class="value-icon">🛡️</div>
+                        <h3 class="value-title">Безопасность</h3>
+                        <p class="value-description">Защита персональных данных и финансовой информации по最高 standards.</p>
+                    </div>
+                    
+                    <div class="value-card">
+                        <div class="value-icon">❤️</div>
+                        <h3 class="value-title">Клиентоцентричность</h3>
+                        <p class="value-description">Индивидуальный подход к каждому клиенту и забота о его финансовом благополучии.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Команда -->
+            <section class="team-section">
+                <h2 class="section-title">Наша команда</h2>
+                
+                <div class="team-grid">
+                    <div class="team-member">
+                        <div class="member-photo">👨‍💼</div>
+                        <h3 class="member-name">Александр Петров</h3>
+                        <div class="member-position">CEO & Основатель</div>
+                        <p class="member-bio">15 лет в финансовом секторе, экс-директор крупного банка</p>
+                    </div>
+                    
+                    <div class="team-member">
+                        <div class="member-photo">👩‍💼</div>
+                        <h3 class="member-name">Мария Смирнова</h3>
+                        <div class="member-position">Главный финансовый директор</div>
+                        <p class="member-bio">Специалист по риск-менеджменту и кредитным продуктам</p>
+                    </div>
+                    
+                    <div class="team-member">
+                        <div class="member-photo">👨‍💻</div>
+                        <h3 class="member-name">Дмитрий Иванов</h3>
+                        <div class="member-position">CTO & Руководитель разработки</div>
+                        <p class="member-bio">Эксперт в FinTech, создатель цифровых банковских платформ</p>
+                    </div>
+                    
+                    <div class="team-member">
+                        <div class="member-photo">👩‍🎓</div>
+                        <h3 class="member-name">Елена Кузнецова</h3>
+                        <div class="member-position">Директор по клиентскому опыту</div>
+                        <p class="member-bio">Специалист по UX и customer journey в финансовой сфере</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- CTA секция -->
+            <section class="cta-section">
+                <h2 class="cta-title">Готовы найти идеальный кредит?</h2>
+                <p class="cta-description">
+                    Присоединяйтесь к тысячам довольных клиентов, которые уже воспользовались 
+                    нашими услугами и получили лучшее финансовое решение для своих целей.
+                </p>
+                <button class="cta-button">Перейти в каталог</button>
+            </section>
+        </div>
+    </main>
+
+    <!-- Футер -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-section">
+                    <h3 class="footer-title">КредитMarket</h3>
+                    <p>ФИНАНСЫ × ТЕХНОЛОГИИ</p>
+                    <p style="margin-top: 15px; color: #aaa; font-size: 14px;">Современная платформа для выбора и сравнения финансовых продуктов.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-title">Категории</h3>
+                    <div class="footer-links">
+                        <a href="#">Потребительские кредиты</a>
+                        <a href="#">Ипотека</a>
+                        <a href="#">Автокредиты</a>
+                        <a href="#">Кредитные карты</a>
+                        <a href="#">Рефинансирование</a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-title">Контакты</h3>
+                    <div class="footer-links">
+                        <a href="tel:+78001234567">8 (800) 123-45-67</a>
+                        <a href="mailto:info@kreditmarket.ru">info@kreditmarket.ru</a>
+                        <a href="#">г. Москва, ул. Финансовая, 15</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                &copy; 2024 КредитMarket. Все права защищены.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Анимация статистики
+        function animateStats() {
+            const statNumbers = document.querySelectorAll('.stat-number');
+            
+            statNumbers.forEach(stat => {
+                const target = parseInt(stat.textContent);
+                let current = 0;
+                const increment = target / 50;
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    stat.textContent = Math.floor(current) + (stat.textContent.includes('+') ? '+' : '');
+                }, 30);
+            });
+        }
+        
+        // Запуск анимации при загрузке
+        window.addEventListener('load', animateStats);
+        
+        // CTA кнопка
+        document.querySelector('.cta-button').addEventListener('click', function() {
+            alert('Вы будете перенаправлены в каталог продуктов!');
+            // В реальном приложении здесь был бы переход на страницу каталога
+            window.location.href = '#';
+        });
+    </script>
+</body>
+</html>

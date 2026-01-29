@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калькулятор — КредитMarket</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #ffffff;
+            color: #000000;
+        }
+        
+        /* Шапка */
+        .header {
+            background-color: #ffffff;
+            border-bottom: 2px solid #ff6600;
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: #000000;
+        }
+        
+        .logo span {
+            color: #ff6600;
+        }
+        
+        .tagline {
+            font-size: 14px;
+            color: #666;
+            letter-spacing: 1px;
+        }
+        
+        /* Навигация */
+        .nav {
+            display: flex;
+            background-color: #f8f8f8;
+            border-radius: 8px;
+            padding: 5px;
+            margin-top: 10px;
+        }
+        
+        .nav-item {
+            padding: 12px 20px;
+            text-decoration: none;
+            color: #000000;
+            font-weight: 500;
+            border-radius: 6px;
+            transition: all 0.3s;
+            margin: 0 2px;
+        }
+        
+        .nav-item:hover {
+            background-color: #fff5e6;
+            color: #ff6600;
+        }
+        
+        .nav-item.active {
+            background-color: #ff6600;
+            color: white;
+        }
+        
+        /* Контент калькулятора */
+        .calculator-container {
+            padding: 40px 0;
+            min-height: 70vh;
+        }
+        
+        .calculator-title {
+            font-size: 32px;
+            margin-bottom: 30px;
+            color: #000000;
+            border-left: 5px solid #ff6600;
+            padding-left: 15px;
+        }
+        
+        /* Основной контент */
+        .calculator-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+        
+        /* Левая колонка - калькулятор */
+        .calculator-section {
+            background-color: white;
+            border-radius: 16px;
+            padding: 30px;
+            border: 1px solid #eee;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .section-title {
+            font-size: 24px;
+            margin-bottom: 25px;
+            color: #333;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: #ff6600;
+        }
+        
+        /* Поля ввода */
+        .input-group {
+            margin-bottom: 25px;
+        }
+        
+        .input-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .value-display {
+            color: #ff6600;
+            font-weight: 600;
+            font-size: 18px;
+        }
+        
+        .range-container {
+            position: relative;
+            margin-bottom: 5px;
+        }
+        
+        .range-slider {
+            width: 100%;
+            height: 8px;
+            -webkit-appearance: none;
+            appearance: none;
+            background: #eee;
+            border-radius: 4px;
+            outline: none;
+        }
+        
+        .range-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            background: #ff6600;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 3px solid white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        .range-slider::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            background: #ff6600;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 3px solid white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        .range-minmax {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: #777;
+            margin-top: 5px;
+        }
+        
+        /* Поле ввода числа */
+        .number-input {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        .number-input:focus {
+            outline: none;
+            border-color: #ff6600;
+            box-shadow: 0 0 0 3px rgba(255, 102, 0, 0.1);
+        }
+        
+        /* Тип платежа */
+        .payment-type {
+            display: flex;
+            margin-bottom: 25px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 5px;
+        }
+        
+        .payment-option {
+            flex: 1;
+            text-align: center;
+            padding: 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        
+        .payment-option:hover {
+            background-color: #fff5e6;
+        }
+        
+        .payment-option.active {
+            background-color: #ff6600;
+            color: white;
+        }
+        
+        /* Кнопка расчета */
+        .calculate-btn {
+            background-color: #ff6600;
+            color: white;
+            border: none;
+            padding: 16px;
+            width: 100%;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+        
+        .calculate-btn:hover {
+            background-color: #e55a00;
+            box-shadow: 0 5px 15px rgba(255, 102, 0, 0.2);
+        }
+        
+        /* Правая колонка - результаты */
+        .results-section {
+            background-color: #f9f9f9;
+            border-radius: 16px;
+            padding: 30px;
+            border: 1px solid #eee;
+        }
+        
+        .results-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: #666;
+            text-align: center;
+        }
+        
+        .results-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            color: #ddd;
+        }
+        
+        .results-placeholder h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        /* Результаты расчета */
+        .calculation-results {
+            display: none;
+        }
+        
+        .results-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .results-title {
+            font-size: 22px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .results-subtitle {
+            color: #666;
+        }
+        
+        .results-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .result-item {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid #eee;
+        }
+        
+        .result-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: #ff6600;
+            margin-bottom: 5px;
+        }
+        
+        .result-label {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .result-note {
+            font-size: 12px;
+            color: #999;
+            margin-top: 5px;
+        }
+        
+        /* График платежей */
+        .payment-schedule {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        
+        .schedule-title {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+        
+        .schedule-table th {
+            background-color: #f0f0f0;
+            padding: 12px;
+            text-align: left;
+            color: #333;
+            font-weight: 600;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .schedule-table td {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+            color: #555;
+        }
+        
+        .schedule-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .schedule-table tr:hover {
+            background-color: #fff9f2;
+        }
+        
+        /* Быстрые расчеты */
+        .quick-calculations {
+            margin-top: 60px;
+        }
+        
+        .quick-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .quick-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eee;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .quick-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border-color: #ff6600;
+        }
+        
+        .quick-icon {
+            width: 70px;
+            height: 70px;
+            background-color: #fff5e6;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: #ff6600;
+            font-size: 30px;
+        }
+        
+        .quick-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #000;
+        }
+        
+        .quick-description {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        /* Информация о расчете */
+        .calculation-info {
+            background-color: #f0f9ff;
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 40px;
+            border-left: 5px solid #ff6600;
+        }
+        
+        .info-title {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .info-text {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .formula {
+            background-color: white;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+            font-family: monospace;
+            border: 1px solid #eee;
+        }
+        
+        /* Футер */
+        .footer {
+            background-color: #222;
+            color: white;
+            padding: 40px 0;
+            margin-top: 60px;
+        }
+        
+        .footer-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-title {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #ff6600;
+        }
+        
+        .footer-links a {
+            display: block;
+            color: #ccc;
+            text-decoration: none;
+            margin-bottom: 10px;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: #ff6600;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            margin-top: 20px;
+            border-top: 1px solid #444;
+            color: #aaa;
+            font-size: 14px;
+        }
+        
+        @media (max-width: 992px) {
+            .calculator-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .top-bar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .tagline {
+                margin-top: 5px;
+            }
+            
+            .nav {
+                overflow-x: auto;
+            }
+            
+            .schedule-table {
+                display: block;
+                overflow-x: auto;
+            }
+            
+            .payment-type {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Шапка сайта -->
+    <header class="header">
+        <div class="container">
+            <div class="top-bar">
+                <div class="logo">Кредит<span>Market</span></div>
+                <div class="tagline">ФИНАНСЫ × ТЕХНОЛОГИИ</div>
+            </div>
+            
+            <nav class="nav">
+                 <a href="index.html" class="nav-item ">Главная</a>
+                   <a href="catalog.html" class="nav-item ">Каталог</a>
+                <a href="credits.html" class="nav-item">Кредиты</a>
+                <a href="calculator.html" class="nav-item active">Калькулятор</a>
+                <a href="cart.html" class="nav-item">Корзина</a>
+                <a href="about.html" class="nav-item  " >О нас</a>
+                <a href="contacts.html" class="nav-item">Контакты</a>
+                    <a href="profile.html" class="nav-item">Профиль</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Основной контент -->
+    <main class="container">
+        <div class="calculator-container">
+            <h1 class="calculator-title">Кредитный калькулятор</h1>
+            
+            <!-- Основной контент -->
+            <div class="calculator-content">
+                <!-- Левая колонка - калькулятор -->
+                <div class="calculator-section">
+                    <h2 class="section-title">Расчет кредита</h2>
+                    
+                    <div class="input-group">
+                        <div class="input-label">
+                            <span>Сумма кредита</span>
+                            <span class="value-display" id="amountValue">500 000 ₽</span>
+                        </div>
+                        <div class="range-container">
+                            <input type="range" min="50000" max="5000000" value="500000" step="50000" class="range-slider" id="amountSlider">
+                        </div>
+                        <div class="range-minmax">
+                            <span>50 000 ₽</span>
+                            <span>5 000 000 ₽</span>
+                        </div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <div class="input-label">
+                            <span>Срок кредита</span>
+                            <span class="value-display" id="termValue">36 месяцев</span>
+                        </div>
+                        <div class="range-container">
+                            <input type="range" min="6" max="84" value="36" step="6" class="range-slider" id="termSlider">
+                        </div>
+                        <div class="range-minmax">
+                            <span>6 месяцев</span>
+                            <span>84 месяца</span>
+                        </div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <div class="input-label">
+                            <span>Процентная ставка</span>
+                            <span class="value-display" id="rateValue">12.5%</span>
+                        </div>
+                        <div class="range-container">
+                            <input type="range" min="5" max="25" value="12.5" step="0.1" class="range-slider" id="rateSlider">
+                        </div>
+                        <div class="range-minmax">
+                            <span>5%</span>
+                            <span>25%</span>
+                        </div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <div class="input-label">
+                            <span>Тип платежа</span>
+                        </div>
+                        <div class="payment-type">
+                            <div class="payment-option active" data-type="annuity">Аннуитетный</div>
+                            <div class="payment-option" data-type="differentiated">Дифференцированный</div>
+                        </div>
+                    </div>
+                    
+                    <button class="calculate-btn" id="calculateBtn">Рассчитать кредит</button>
+                </div>
+                
+                <!-- Правая колонка - результаты -->
+                <div class="results-section">
+                    <div class="results-placeholder" id="resultsPlaceholder">
+                        <div class="results-icon">🧮</div>
+                        <h3>Результаты расчета</h3>
+                        <p>Введите параметры кредита и нажмите "Рассчитать", чтобы увидеть детальный расчет</p>
+                    </div>
+                    
+                    <div class="calculation-results" id="calculationResults">
+                        <div class="results-header">
+                            <h3 class="results-title">Детали расчета кредита</h3>
+                            <p class="results-subtitle">На основе введенных параметров</p>
+                        </div>
+                        
+                        <div class="results-grid">
+                            <div class="result-item">
+                                <div class="result-value" id="monthlyPayment">0 ₽</div>
+                                <div class="result-label">Ежемесячный платеж</div>
+                            </div>
+                            
+                            <div class="result-item">
+                                <div class="result-value" id="totalAmount">0 ₽</div>
+                                <div class="result-label">Общая сумма выплат</div>
+                            </div>
+                            
+                            <div class="result-item">
+                                <div class="result-value" id="overpayment">0 ₽</div>
+                                <div class="result-label">Переплата по кредиту</div>
+                            </div>
+                            
+                            <div class="result-item">
+                                <div class="result-value" id="overpaymentPercent">0%</div>
+                                <div class="result-label">Процент переплаты</div>
+                            </div>
+                        </div>
+                        
+                        <div class="payment-schedule">
+                            <h4 class="schedule-title">График платежей (первые 6 месяцев)</h4>
+                            <table class="schedule-table" id="paymentSchedule">
+                                <thead>
+                                    <tr>
+                                        <th>Месяц</th>
+                                        <th>Платеж</th>
+                                        <th>Основной долг</th>
+                                        <th>Проценты</th>
+                                        <th>Остаток</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Заполняется JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Быстрые расчеты -->
+            <div class="quick-calculations">
+                <h2 class="section-title">Популярные расчеты</h2>
+                <p style="color: #666; margin-bottom: 20px;">Выберите один из популярных сценариев для быстрого расчета</p>
+                
+                <div class="quick-grid">
+                    <div class="quick-card" data-preset="car">
+                        <div class="quick-icon">🚗</div>
+                        <h3 class="quick-title">Автокредит</h3>
+                        <p class="quick-description">Кредит на новый автомобиль. Ставка от 7.9%, срок до 7 лет</p>
+                    </div>
+                    
+                    <div class="quick-card" data-preset="mortgage">
+                        <div class="quick-icon">🏠</div>
+                        <h3 class="quick-title">Ипотека</h3>
+                        <p class="quick-description">Покупка жилья в ипотеку. Ставка от 8.5%, срок до 30 лет</p>
+                    </div>
+                    
+                    <div class="quick-card" data-preset="consumer">
+                        <div class="quick-icon">💵</div>
+                        <h3 class="quick-title">Потребительский кредит</h3>
+                        <p class="quick-description">Кредит наличными на любые цели. Ставка от 12%, срок до 5 лет</p>
+                    </div>
+                    
+                    <div class="quick-card" data-preset="refinance">
+                        <div class="quick-icon">🔄</div>
+                        <h3 class="quick-title">Рефинансирование</h3>
+                        <p class="quick-description">Объединение кредитов. Ставка от 10.5%, срок до 7 лет</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Информация о расчете -->
+            <div class="calculation-info">
+                <h3 class="info-title">О расчете кредита</h3>
+                <p class="info-text">Калькулятор рассчитывает аннуитетные платежи — равные ежемесячные выплаты по кредиту, которые включают сумму на погашение кредита и начисленные проценты.</p>
+                <p class="info-text">При дифференцированных платежах сумма ежемесячного платежа уменьшается к концу срока кредита, так как проценты начисляются на остаток долга.</p>
+                <div class="formula">
+                    Формула аннуитетного платежа: A = P × (i × (1 + i)^n) / ((1 + i)^n - 1)<br>
+                    Где: A - ежемесячный платеж, P - сумма кредита, i - месячная процентная ставка, n - количество месяцев
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Футер -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-section">
+                    <h3 class="footer-title">КредитMarket</h3>
+                    <p>ФИНАНСЫ × ТЕХНОЛОГИИ</p>
+                    <p style="margin-top: 15px; color: #aaa; font-size: 14px;">Современная платформа для выбора и сравнения финансовых продуктов.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-title">Категории</h3>
+                    <div class="footer-links">
+                        <a href="#">Потребительские кредиты</a>
+                        <a href="#">Ипотека</a>
+                        <a href="#">Автокредиты</a>
+                        <a href="#">Кредитные карты</a>
+                        <a href="#">Рефинансирование</a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-title">Контакты</h3>
+                    <div class="footer-links">
+                        <a href="tel:+78001234567">8 (800) 123-45-67</a>
+                        <a href="mailto:info@kreditmarket.ru">info@kreditmarket.ru</a>
+                        <a href="#">г. Москва, ул. Финансовая, 15</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                &copy; 2024 КредитMarket. Все права защищены.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Элементы DOM
+        const amountSlider = document.getElementById('amountSlider');
+        const amountValue = document.getElementById('amountValue');
+        const termSlider = document.getElementById('termSlider');
+        const termValue = document.getElementById('termValue');
+        const rateSlider = document.getElementById('rateSlider');
+        const rateValue = document.getElementById('rateValue');
+        const calculateBtn = document.getElementById('calculateBtn');
+        const resultsPlaceholder = document.getElementById('resultsPlaceholder');
+        const calculationResults = document.getElementById('calculationResults');
+        const monthlyPaymentEl = document.getElementById('monthlyPayment');
+        const totalAmountEl = document.getElementById('totalAmount');
+        const overpaymentEl = document.getElementById('overpayment');
+        const overpaymentPercentEl = document.getElementById('overpaymentPercent');
+        const paymentSchedule = document.getElementById('paymentSchedule');
+        const paymentOptions = document.querySelectorAll('.payment-option');
+        const quickCards = document.querySelectorAll('.quick-card');
+        
+        // Текущие значения
+        let amount = 500000;
+        let term = 36;
+        let rate = 12.5;
+        let paymentType = 'annuity'; // 'annuity' или 'differentiated'
+        
+        // Форматирование чисел
+        function formatCurrency(value) {
+            return new Intl.NumberFormat('ru-RU', { 
+                style: 'currency', 
+                currency: 'RUB',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0
+            }).format(value);
+        }
+        
+        function formatNumber(value) {
+            return new Intl.NumberFormat('ru-RU').format(value);
+        }
+        
+        // Обновление отображения значений
+        function updateDisplay() {
+            amountValue.textContent = formatCurrency(amount);
+            termValue.textContent = `${term} ${getMonthWord(term)}`;
+            rateValue.textContent = `${rate}%`;
+        }
+        
+        function getMonthWord(months) {
+            const lastDigit = months % 10;
+            const lastTwoDigits = months % 100;
+            
+            if (lastTwoDigits >= 11 && lastTwoDigits <= 19) {
+                return 'месяцев';
+            } else if (lastDigit === 1) {
+                return 'месяц';
+            } else if (lastDigit >= 2 && lastDigit <= 4) {
+                return 'месяца';
+            } else {
+                return 'месяцев';
+            }
+        }
+        
+        // Расчет аннуитетного платежа
+        function calculateAnnuityPayment(principal, annualRate, months) {
+            const monthlyRate = annualRate / 100 / 12;
+            const coefficient = (monthlyRate * Math.pow(1 + monthlyRate, months)) / 
+                               (Math.pow(1 + monthlyRate, months) - 1);
+            return principal * coefficient;
+        }
+        
+        // Расчет дифференцированного платежа
+        function calculateDifferentiatedPayment(principal, annualRate, month, months) {
+            const monthlyRate = annualRate / 100 / 12;
+            const principalPart = principal / months;
+            const interestPart = (principal - (month - 1) * principalPart) * monthlyRate;
+            return principalPart + interestPart;
+        }
+        
+        // Расчет общего графика платежей
+        function calculatePaymentSchedule(principal, annualRate, months, type) {
+            const schedule = [];
+            let remainingPrincipal = principal;
+            const monthlyRate = annualRate / 100 / 12;
+            
+            for (let month = 1; month <= months; month++) {
+                let principalPart, interestPart, payment;
+                
+                if (type === 'annuity') {
+                    payment = calculateAnnuityPayment(principal, annualRate, months);
+                    interestPart = remainingPrincipal * monthlyRate;
+                    principalPart = payment - interestPart;
+                } else {
+                    // Дифференцированный платеж
+                    principalPart = principal / months;
+                    interestPart = remainingPrincipal * monthlyRate;
+                    payment = principalPart + interestPart;
+                }
+                
+                remainingPrincipal -= principalPart;
+                
+                schedule.push({
+                    month,
+                    payment,
+                    principalPart,
+                    interestPart,
+                    remainingPrincipal: remainingPrincipal > 0 ? remainingPrincipal : 0
+                });
+            }
+            
+            return schedule;
+        }
+        
+        // Выполнение расчета
+        function performCalculation() {
+            // Показываем результаты
+            resultsPlaceholder.style.display = 'none';
+            calculationResults.style.display = 'block';
+            
+            // Расчет основных показателей
+            let monthlyPayment, totalPayment, overpayment, overpaymentPercent;
+            
+            if (paymentType === 'annuity') {
+                monthlyPayment = calculateAnnuityPayment(amount, rate, term);
+                totalPayment = monthlyPayment * term;
+                overpayment = totalPayment - amount;
+                overpaymentPercent = (overpayment / amount * 100).toFixed(1);
+            } else {
+                // Для дифференцированного платежа берем первый месяц как максимальный платеж
+                const firstMonthPayment = calculateDifferentiatedPayment(amount, rate, 1, term);
+                const lastMonthPayment = calculateDifferentiatedPayment(amount, rate, term, term);
+                monthlyPayment = firstMonthPayment; // Показываем платеж первого месяца
+                
+                // Расчет общей суммы через график платежей
+                const schedule = calculatePaymentSchedule(amount, rate, term, 'differentiated');
+                totalPayment = schedule.reduce((sum, item) => sum + item.payment, 0);
+                overpayment = totalPayment - amount;
+                overpaymentPercent = (overpayment / amount * 100).toFixed(1);
+                
+                // Для дифференцированного показываем диапазон платежей
+                monthlyPaymentEl.innerHTML = `${formatCurrency(firstMonthPayment)} - ${formatCurrency(lastMonthPayment)}`;
+            }
+            
+            // Обновление основных результатов
+            if (paymentType === 'annuity') {
+                monthlyPaymentEl.textContent = formatCurrency(monthlyPayment);
+            }
+            
+            totalAmountEl.textContent = formatCurrency(totalPayment);
+            overpaymentEl.textContent = formatCurrency(overpayment);
+            overpaymentPercentEl.textContent = `${overpaymentPercent}%`;
+            
+            // Обновление графика платежей
+            updatePaymentSchedule();
+        }
+        
+        // Обновление графика платежей
+        function updatePaymentSchedule() {
+            const schedule = calculatePaymentSchedule(amount, rate, Math.min(term, 6), paymentType);
+            const tbody = paymentSchedule.querySelector('tbody');
+            tbody.innerHTML = '';
+            
+            schedule.forEach(item => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${item.month}</td>
+                    <td>${formatCurrency(item.payment)}</td>
+                    <td>${formatCurrency(item.principalPart)}</td>
+                    <td>${formatCurrency(item.interestPart)}</td>
+                    <td>${formatCurrency(item.remainingPrincipal)}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+        
+        // Обработчики событий для слайдеров
+        amountSlider.addEventListener('input', function() {
+            amount = parseInt(this.value);
+            updateDisplay();
+        });
+        
+        termSlider.addEventListener('input', function() {
+            term = parseInt(this.value);
+            updateDisplay();
+        });
+        
+        rateSlider.addEventListener('input', function() {
+            rate = parseFloat(this.value);
+            updateDisplay();
+        });
+        
+        // Обработчики для типа платежа
+        paymentOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                paymentOptions.forEach(opt => opt.classList.remove('active'));
+                this.classList.add('active');
+                paymentType = this.dataset.type;
+                
+                // Если уже были рассчитаны результаты - пересчитываем
+                if (calculationResults.style.display === 'block') {
+                    performCalculation();
+                }
+            });
+        });
+        
+        // Обработчик для кнопки расчета
+        calculateBtn.addEventListener('click', performCalculation);
+        
+        // Обработчики для быстрых расчетов
+        const presets = {
+            car: { amount: 1500000, term: 60, rate: 7.9 },
+            mortgage: { amount: 5000000, term: 240, rate: 8.5 },
+            consumer: { amount: 500000, term: 36, rate: 12 },
+            refinance: { amount: 1000000, term: 60, rate: 10.5 }
+        };
+        
+        quickCards.forEach(card => {
+            card.addEventListener('click', function() {
+                const preset = this.dataset.preset;
+                const config = presets[preset];
+                
+                if (config) {
+                    amount = config.amount;
+                    term = config.term;
+                    rate = config.rate;
+                    
+                    // Обновляем слайдеры
+                    amountSlider.value = amount;
+                    termSlider.value = term;
+                    rateSlider.value = rate;
+                    
+                    // Обновляем отображение
+                    updateDisplay();
+                    
+                    // Выполняем расчет
+                    performCalculation();
+                    
+                    // Плавная прокрутка к результатам
+                    calculationResults.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+        
+        // Инициализация
+        updateDisplay();
+        
+        // Автоматический расчет при загрузке
+        window.addEventListener('load', function() {
+            // Небольшая задержка для лучшего UX
+            setTimeout(performCalculation, 300);
+        });
+    </script>
+</body>
+</html>
