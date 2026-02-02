@@ -1,0 +1,79 @@
+name: Update Data from VK Cloud
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'  # Каждые 6 часов
+  workflow_dispatch:  # Для ручного запуска
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+    
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+    
+    - name: Install dependencies
+      run: pip install pandas openpyxl
+    
+    - name: Download Excel from VK Cloud
+      run: |
+        # СКАЧИВАЕМ ВАШ ФАЙЛ - ЗДЕСЬ ВАША ССЫЛКА
+        curl -L -o data.xlsx "https://cloud.mail.ru/public/4Nef/r6uipVAxF?download=1"
+        echo "Файл скачан. Размер: $(ls -lh data.xlsx | awk '{print $5}')"
+    
+    - name: Convert to JSON
+      run: |
+        python << 'EOF'
+        import pandas as pd
+        import os
+        
+        os.makedirs('data', exist_ok=True)
+        
+        try:
+            xls = pd.ExcelFile('data.xlsx')
+            print(f"✅ Файл прочитан. Листы: {xls.sheet_names}")
+            
+            for sheet in xls.sheet_names:
+                df = pd.read_excel(xls, sheet_name=sheet)
+                df = df.dropna(how='all')  # Удаляем полностью пустые строки
+                
+                # Если DataFrame пустой, создаем пустой JSON
+                if df.empty:
+                    df = pd.DataFrame(columns=['Нет данных'])
+                
+                output_file = f'data/{sheet.lower()}.json'
+                df.to_json(output_file, orient='records', force_ascii=False, indent=2)
+                print(f"✅ Создан: {output_file} (строк: {len(df)})")
+                
+        except Exception as e:
+            print(f"❌ Ошибка: {e}")
+            # Создаем файл с ошибкой для отладки
+            with open('data/error.txt', 'w') as f:
+                f.write(str(e))
+            exit(1)
+        EOF
+    
+    - name: Commit changes
+      run: |
+        git config --global user.name "GitHub Actions"
+        git config --global user.email "actions@github.com"
+        git add data/*.json
+        
+        # Проверяем, есть ли изменения
+        if git diff --staged --quiet; then
+          echo "Нет изменений для коммита"
+        else
+          git commit -m "🤖 Автообновление данных $(date '+%Y-%m-%d %H:%M')"
+          git push
+        fi
+    
+    - name: Clean up
+      run: rm -f data.xlsx
