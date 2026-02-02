@@ -1,0 +1,50 @@
+name: 🔍 Проверка ссылки VK Облака
+
+on:
+  workflow_dispatch:
+
+jobs:
+  check-link:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📋 Проверяем все варианты ссылок
+      run: |
+        echo "=== ТЕСТИРУЮ ССЫЛКИ VK ОБЛАКО ==="
+        echo "Ваша ссылка: https://cloud.mail.ru/public/4Nef/r6uipVAxF"
+        echo ""
+        
+        # Варианты ссылок для теста
+        declare -A urls
+        urls[1]="https://cloud.mail.ru/public/4Nef/r6uipVAxF"
+        urls[2]="https://cloud.mail.ru/public/4Nef/r6uipVAxF/download"
+        urls[3]="https://cloud.mail.ru/public/4Nef/r6uipVAxF?download=1"
+        urls[4]="https://cloud.mail.ru/public/4Nef/r6uipVAxF?dl=1"
+        
+        for i in {1..4}; do
+          echo "--- Тест $i: ${urls[$i]} ---"
+          
+          # Скачиваем с таймаутом
+          timeout 10 curl -L -s -o "test_$i" -w "HTTP код: %{http_code}\nРазмер: %{size_download} байт\n" "${urls[$i]}" || echo "Таймаут!"
+          
+          # Проверяем что скачалось
+          if [ -f "test_$i" ]; then
+            echo "Тип файла: $(file -b "test_$i")"
+            echo "Первые 50 байт (hex):"
+            xxd -l 50 "test_$i"
+            echo ""
+          else
+            echo "Файл не скачался"
+            echo ""
+          fi
+        done
+        
+        echo "=== РЕЗУЛЬТАТ ==="
+        echo "Если в hex видно '504b0304' в начале — это Excel файл"
+        echo "Если видно '3c21444f4354595045' (<!DOCTYPE) — это HTML"
+        
+    - name: 📤 Сохраняем результаты
+      uses: actions/upload-artifact@v3
+      with:
+        name: link-test-results
+        path: test_*
