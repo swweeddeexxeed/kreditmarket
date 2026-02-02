@@ -1,0 +1,120 @@
+name: 📊 Конвертация Excel в JSON
+
+on:
+  workflow_dispatch:  # Ручной запуск
+  schedule:
+    - cron: '0 */6 * * *'  # Каждые 6 часов
+  push:
+    paths:
+      - 'CreditMarket_Data*.xlsx'  # Запуск при изменении Excel файлов
+
+jobs:
+  convert-excel:
+    runs-on: ubuntu-latest
+    
+    steps:
+    # 1. Клонируем репозиторий
+    - name: ⬇️ Клонируем репозиторий
+      uses: actions/checkout@v3
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+    
+    # 2. Устанавливаем Python
+    - name: 🐍 Устанавливаем Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+    
+    # 3. Устанавливаем библиотеки
+    - name: 📦 Устанавливаем зависимости
+      run: pip install pandas openpyxl
+    
+    # 4. Конвертируем Excel в JSON
+    - name: 🔄 Конвертируем Excel → JSON
+      run: |
+        python << 'EOF'
+        import pandas as pd
+        import os
+        import json
+        
+        print("=== НАЧИНАЕМ КОНВЕРТАЦИЮ ===")
+        
+        # Создаем папку data
+        os.makedirs('data', exist_ok=True)
+        
+        # Ищем Excel файл в репозитории
+        excel_files = [f for f in os.listdir('.') if f.endswith('.xlsx')]
+        print(f"Найдены Excel файлы: {excel_files}")
+        
+        if not excel_files:
+            print("❌ Не найдено Excel файлов!")
+            exit(1)
+        
+        # Берем первый найденный Excel файл
+        excel_file = excel_files[0]
+        print(f"Используем файл: {excel_file}")
+        
+        try:
+            # Читаем Excel файл
+            xls = pd.ExcelFile(excel_file)
+            print(f"✅ Файл прочитан. Листы: {xls.sheet_names}")
+            
+            # Конвертируем каждый лист
+            for sheet_name in xls.sheet_names:
+                print(f"📋 Обрабатываю лист: '{sheet_name}'")
+                
+                df = pd.read_excel(xls, sheet_name=sheet_name)
+                
+                # Очищаем данные
+                df = df.dropna(how='all')  # Удаляем пустые строки
+                df = df.dropna(axis=1, how='all')  # Удаляем пустые столбцы
+                
+                # Если данных нет
+                if df.empty:
+                    print(f"⚠️ Лист '{sheet_name}' пуст")
+                    df = pd.DataFrame({'Сообщение': [f'Лист "{sheet_name}" не содержит данных']})
+                
+                # Сохраняем как JSON
+                safe_name = sheet_name.lower().replace(' ', '_').replace('-', '_')
+                output_file = f'data/{safe_name}.json'
+                
+                df.to_json(output_file, orient='records', force_ascii=False, indent=2)
+                print(f"💾 Сохранено: {output_file} ({len(df)} строк)")
+            
+            print("🎉 Все листы успешно конвертированы!")
+            
+        except Exception as e:
+            print(f"❌ Ошибка при конвертации: {e}")
+            # Сохраняем информацию об ошибке
+            error_info = {
+                "ошибка": str(e),
+                "файл": excel_file,
+                "рекомендации": "Проверьте формат Excel файла"
+            }
+            with open('data/error.json', 'w') as f:
+                json.dump(error_info, f, ensure_ascii=False, indent=2)
+            exit(1)
+        EOF
+    
+    # 5. Сохраняем JSON файлы в репозитории
+    - name: 💾 Сохраняем результаты
+      run: |
+        # Настраиваем Git
+        git config --global user.name "GitHub Actions"
+        git config --global user.email "actions@github.com"
+        
+        # Проверяем, что есть данные
+        echo "Содержимое папки data:"
+        ls -la data/ || echo "Папка data не создана"
+        
+        # Добавляем файлы
+        git add data/
+        
+        # Коммитим, если есть изменения
+        if git diff --staged --quiet; then
+          echo "Нет изменений для коммита"
+        else
+          git commit -m "📊 Данные обновлены $(date '+%d.%m.%Y %H:%M')"
+          git push
+          echo "✅ JSON файлы сохранены в репозитории"
+        fi
