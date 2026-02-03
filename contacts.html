@@ -244,13 +244,58 @@
             line-height: 1.5;
         }
         
-        /* Стили для iframe формы Google */
-        .google-form-container {
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .form-input, .form-textarea {
             width: 100%;
-            height: 650px;
-            border: none;
+            padding: 14px;
+            border: 1px solid #ddd;
             border-radius: 8px;
-            overflow: hidden;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        .form-input:focus, .form-textarea:focus {
+            outline: none;
+            border-color: #ff6600;
+            box-shadow: 0 0 0 3px rgba(255, 102, 0, 0.1);
+        }
+        
+        .form-textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .form-submit {
+            background-color: #ff6600;
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+        
+        .form-submit:hover {
+            background-color: #e55a00;
+            box-shadow: 0 5px 15px rgba(255, 102, 0, 0.2);
         }
         
         /* Карта */
@@ -506,10 +551,6 @@
                 margin-bottom: 10px;
             }
             
-            .google-form-container {
-                height: 800px;
-            }
-            
             .map-container {
                 height: 300px;
             }
@@ -609,7 +650,7 @@
                                 <td>10:00 - 18:00</td>
                             </tr>
                             <tr>
-                                <td>Воресенье</td>
+                                <td>Воскресенье</td>
                                 <td>10:00 - 16:00</td>
                             </tr>
                             <tr>
@@ -628,18 +669,40 @@
                         Обычно мы отвечаем в течение 1 рабочего дня.
                     </p>
                     
-                    <!-- Форма Google Forms -->
-                    <div class="google-form-container">
-                        <!-- ЗАМЕНИТЕ ЭТОТ URL НА СВОЙ URL ФОРМЫ GOOGLE -->
-                        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeExampleViewForm?embedded=true" 
-                                width="100%" 
-                                height="650" 
-                                frameborder="0" 
-                                marginheight="0" 
-                                marginwidth="0">
-                            Загрузка формы...
-                        </iframe>
-                    </div>
+                    <form class="contact-form" id="feedbackForm">
+                        <div class="form-group">
+                            <label for="name" class="form-label">Ваше имя *</label>
+                            <input type="text" id="name" class="form-input" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone" class="form-label">Телефон *</label>
+                            <input type="tel" id="phone" class="form-input" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email" class="form-label">Электронная почта *</label>
+                            <input type="email" id="email" class="form-input" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="subject" class="form-label">Тема обращения</label>
+                            <select id="subject" class="form-input">
+                                <option value="">Выберите тему</option>
+                                <option value="credit">Вопрос по кредиту</option>
+                                <option value="tech">Техническая поддержка</option>
+                                <option value="partner">Сотрудничество</option>
+                                <option value="other">Другое</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message" class="form-label">Сообщение *</label>
+                            <textarea id="message" class="form-textarea" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="form-submit">Отправить сообщение</button>
+                    </form>
                 </div>
             </div>
             
@@ -771,6 +834,28 @@
     </footer>
 
     <script>
+        // Обработка формы обратной связи
+        document.getElementById('feedbackForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // В реальном приложении здесь была бы отправка данных на сервер
+            const formData = {
+                name: document.getElementById('name').value,
+                phone: document.getElementById('phone').value,
+                email: document.getElementById('email').value,
+                subject: document.getElementById('subject').value,
+                message: document.getElementById('message').value
+            };
+            
+            console.log('Форма отправлена:', formData);
+            
+            // Показываем сообщение об успехе
+            alert('Спасибо! Ваше сообщение отправлено. Мы свяжемся с вами в ближайшее время.');
+            
+            // Очищаем форму
+            this.reset();
+        });
+        
         // Работа с FAQ
         document.querySelectorAll('.faq-question').forEach(question => {
             question.addEventListener('click', function() {
@@ -784,6 +869,16 @@
                     }
                 });
             });
+        });
+        
+        // Маска для телефона
+        document.getElementById('phone').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            
+            if (value.length > 0) {
+                value = value.match(/(\d{0,1})(\d{0,3})(\d{0,3})(\d{0,2})(\d{0,2})/);
+                e.target.value = !value[2] ? value[1] : '+7 (' + value[2] + ') ' + value[3] + (value[4] ? '-' + value[4] : '') + (value[5] ? '-' + value[5] : '');
+            }
         });
         
         // Анимация при наведении на контактные карточки
