@@ -298,6 +298,24 @@
             box-shadow: 0 5px 15px rgba(255, 102, 0, 0.2);
         }
         
+        .form-success {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .form-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            display: none;
+        }
+        
         /* Карта */
         .map-section {
             margin-top: 40px;
@@ -669,39 +687,54 @@
                         Обычно мы отвечаем в течение 1 рабочего дня.
                     </p>
                     
-                    <form class="contact-form" id="feedbackForm">
+                    <!-- РАБОЧАЯ ФОРМА с отправкой на email -->
+                    <form class="contact-form" id="feedbackForm" action="https://formspree.io/f/xknqowln" method="POST">
                         <div class="form-group">
                             <label for="name" class="form-label">Ваше имя *</label>
-                            <input type="text" id="name" class="form-input" required>
+                            <input type="text" id="name" name="name" class="form-input" required placeholder="Введите ваше имя">
                         </div>
                         
                         <div class="form-group">
                             <label for="phone" class="form-label">Телефон *</label>
-                            <input type="tel" id="phone" class="form-input" required>
+                            <input type="tel" id="phone" name="phone" class="form-input" required placeholder="+7 (999) 123-45-67">
                         </div>
                         
                         <div class="form-group">
                             <label for="email" class="form-label">Электронная почта *</label>
-                            <input type="email" id="email" class="form-input" required>
+                            <input type="email" id="email" name="email" class="form-input" required placeholder="example@mail.ru">
                         </div>
                         
                         <div class="form-group">
                             <label for="subject" class="form-label">Тема обращения</label>
-                            <select id="subject" class="form-input">
+                            <select id="subject" name="subject" class="form-input">
                                 <option value="">Выберите тему</option>
-                                <option value="credit">Вопрос по кредиту</option>
-                                <option value="tech">Техническая поддержка</option>
-                                <option value="partner">Сотрудничество</option>
-                                <option value="other">Другое</option>
+                                <option value="Вопрос по кредиту">Вопрос по кредиту</option>
+                                <option value="Техническая поддержка">Техническая поддержка</option>
+                                <option value="Сотрудничество">Сотрудничество</option>
+                                <option value="Другое">Другое</option>
                             </select>
                         </div>
                         
                         <div class="form-group">
                             <label for="message" class="form-label">Сообщение *</label>
-                            <textarea id="message" class="form-textarea" required></textarea>
+                            <textarea id="message" name="message" class="form-textarea" required placeholder="Напишите ваше сообщение..."></textarea>
                         </div>
                         
+                        <!-- Скрытые поля для Formspree -->
+                        <input type="hidden" name="_language" value="ru">
+                        <input type="hidden" name="_subject" value="Новое сообщение с сайта КредитMarket">
+                        <input type="hidden" name="_replyto" value="sahaswed@gmail.com">
+                        <input type="hidden" name="_cc" value="sahaswed@gmail.com">
+                        
                         <button type="submit" class="form-submit">Отправить сообщение</button>
+                        
+                        <!-- Сообщения об успехе/ошибке -->
+                        <div id="formSuccess" class="form-success" style="display: none;">
+                            ✅ Спасибо! Ваше сообщение отправлено. Мы свяжемся с вами в ближайшее время.
+                        </div>
+                        <div id="formError" class="form-error" style="display: none;">
+                            ❌ Произошла ошибка при отправке. Пожалуйста, попробуйте еще раз.
+                        </div>
                     </form>
                 </div>
             </div>
@@ -835,25 +868,63 @@
 
     <script>
         // Обработка формы обратной связи
-        document.getElementById('feedbackForm').addEventListener('submit', function(e) {
+        document.getElementById('feedbackForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            // В реальном приложении здесь была бы отправка данных на сервер
-            const formData = {
-                name: document.getElementById('name').value,
-                phone: document.getElementById('phone').value,
-                email: document.getElementById('email').value,
-                subject: document.getElementById('subject').value,
-                message: document.getElementById('message').value
-            };
+            const submitBtn = this.querySelector('.form-submit');
+            const originalText = submitBtn.textContent;
             
-            console.log('Форма отправлена:', formData);
+            // Показать индикатор загрузки
+            submitBtn.textContent = 'Отправка...';
+            submitBtn.disabled = true;
             
-            // Показываем сообщение об успехе
-            alert('Спасибо! Ваше сообщение отправлено. Мы свяжемся с вами в ближайшее время.');
+            // Скрыть предыдущие сообщения
+            document.getElementById('formSuccess').style.display = 'none';
+            document.getElementById('formError').style.display = 'none';
             
-            // Очищаем форму
-            this.reset();
+            try {
+                // Отправка данных через Formspree
+                const formData = new FormData(this);
+                const response = await fetch(this.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+                
+                if (response.ok) {
+                    // Успешная отправка
+                    document.getElementById('formSuccess').style.display = 'block';
+                    document.getElementById('formError').style.display = 'none';
+                    
+                    // Очистить форму
+                    this.reset();
+                    
+                    // Скрыть сообщение через 5 секунд
+                    setTimeout(() => {
+                        document.getElementById('formSuccess').style.display = 'none';
+                    }, 5000);
+                } else {
+                    // Ошибка отправки
+                    throw new Error('Ошибка отправки формы');
+                }
+            } catch (error) {
+                // Ошибка сети или сервера
+                document.getElementById('formError').style.display = 'block';
+                document.getElementById('formSuccess').style.display = 'none';
+                
+                // Скрыть сообщение об ошибке через 5 секунд
+                setTimeout(() => {
+                    document.getElementById('formError').style.display = 'none';
+                }, 5000);
+                
+                console.error('Ошибка отправки формы:', error);
+            } finally {
+                // Восстановить кнопку
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }
         });
         
         // Работа с FAQ
@@ -893,6 +964,17 @@
                 const icon = this.querySelector('.contact-card-icon');
                 icon.style.transform = 'scale(1)';
             });
+        });
+        
+        // Валидация email
+        document.getElementById('email').addEventListener('blur', function() {
+            const email = this.value;
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (email && !emailRegex.test(email)) {
+                this.style.borderColor = '#dc3545';
+            } else {
+                this.style.borderColor = '#ddd';
+            }
         });
     </script>
 </body>
