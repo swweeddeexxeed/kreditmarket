@@ -244,76 +244,13 @@
             line-height: 1.5;
         }
         
-        .contact-form {
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        .form-label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-            color: #333;
-        }
-        
-        .form-input, .form-textarea {
+        /* Стили для iframe формы Google */
+        .google-form-container {
             width: 100%;
-            padding: 14px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: all 0.3s;
-        }
-        
-        .form-input:focus, .form-textarea:focus {
-            outline: none;
-            border-color: #ff6600;
-            box-shadow: 0 0 0 3px rgba(255, 102, 0, 0.1);
-        }
-        
-        .form-textarea {
-            min-height: 150px;
-            resize: vertical;
-        }
-        
-        .form-submit {
-            background-color: #ff6600;
-            color: white;
+            height: 650px;
             border: none;
-            padding: 16px;
             border-radius: 8px;
-            font-size: 18px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            margin-top: 10px;
-        }
-        
-        .form-submit:hover {
-            background-color: #e55a00;
-            box-shadow: 0 5px 15px rgba(255, 102, 0, 0.2);
-        }
-        
-        .form-success {
-            background-color: #d4edda;
-            color: #155724;
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 20px;
-            display: none;
-        }
-        
-        .form-error {
-            background-color: #f8d7da;
-            color: #721c24;
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 20px;
-            display: none;
+            overflow: hidden;
         }
         
         /* Карта */
@@ -569,6 +506,10 @@
                 margin-bottom: 10px;
             }
             
+            .google-form-container {
+                height: 800px;
+            }
+            
             .map-container {
                 height: 300px;
             }
@@ -668,7 +609,7 @@
                                 <td>10:00 - 18:00</td>
                             </tr>
                             <tr>
-                                <td>Воскресенье</td>
+                                <td>Воресенье</td>
                                 <td>10:00 - 16:00</td>
                             </tr>
                             <tr>
@@ -687,55 +628,18 @@
                         Обычно мы отвечаем в течение 1 рабочего дня.
                     </p>
                     
-                    <!-- РАБОЧАЯ ФОРМА с отправкой на email -->
-                    <form class="contact-form" id="feedbackForm" action="https://formspree.io/f/xknqowln" method="POST">
-                        <div class="form-group">
-                            <label for="name" class="form-label">Ваше имя *</label>
-                            <input type="text" id="name" name="name" class="form-input" required placeholder="Введите ваше имя">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="phone" class="form-label">Телефон *</label>
-                            <input type="tel" id="phone" name="phone" class="form-input" required placeholder="+7 (999) 123-45-67">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="email" class="form-label">Электронная почта *</label>
-                            <input type="email" id="email" name="email" class="form-input" required placeholder="example@mail.ru">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="subject" class="form-label">Тема обращения</label>
-                            <select id="subject" name="subject" class="form-input">
-                                <option value="">Выберите тему</option>
-                                <option value="Вопрос по кредиту">Вопрос по кредиту</option>
-                                <option value="Техническая поддержка">Техническая поддержка</option>
-                                <option value="Сотрудничество">Сотрудничество</option>
-                                <option value="Другое">Другое</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="message" class="form-label">Сообщение *</label>
-                            <textarea id="message" name="message" class="form-textarea" required placeholder="Напишите ваше сообщение..."></textarea>
-                        </div>
-                        
-                        <!-- Скрытые поля для Formspree -->
-                        <input type="hidden" name="_language" value="ru">
-                        <input type="hidden" name="_subject" value="Новое сообщение с сайта КредитMarket">
-                        <input type="hidden" name="_replyto" value="sahaswed@gmail.com">
-                        <input type="hidden" name="_cc" value="sahaswed@gmail.com">
-                        
-                        <button type="submit" class="form-submit">Отправить сообщение</button>
-                        
-                        <!-- Сообщения об успехе/ошибке -->
-                        <div id="formSuccess" class="form-success" style="display: none;">
-                            ✅ Спасибо! Ваше сообщение отправлено. Мы свяжемся с вами в ближайшее время.
-                        </div>
-                        <div id="formError" class="form-error" style="display: none;">
-                            ❌ Произошла ошибка при отправке. Пожалуйста, попробуйте еще раз.
-                        </div>
-                    </form>
+                    <!-- Форма Google Forms -->
+                    <div class="google-form-container">
+                        <!-- ЗАМЕНИТЕ ЭТОТ URL НА СВОЙ URL ФОРМЫ GOOGLE -->
+                        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeExampleViewForm?embedded=true" 
+                                width="100%" 
+                                height="650" 
+                                frameborder="0" 
+                                marginheight="0" 
+                                marginwidth="0">
+                            Загрузка формы...
+                        </iframe>
+                    </div>
                 </div>
             </div>
             
@@ -867,66 +771,6 @@
     </footer>
 
     <script>
-        // Обработка формы обратной связи
-        document.getElementById('feedbackForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const submitBtn = this.querySelector('.form-submit');
-            const originalText = submitBtn.textContent;
-            
-            // Показать индикатор загрузки
-            submitBtn.textContent = 'Отправка...';
-            submitBtn.disabled = true;
-            
-            // Скрыть предыдущие сообщения
-            document.getElementById('formSuccess').style.display = 'none';
-            document.getElementById('formError').style.display = 'none';
-            
-            try {
-                // Отправка данных через Formspree
-                const formData = new FormData(this);
-                const response = await fetch(this.action, {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'Accept': 'application/json'
-                    }
-                });
-                
-                if (response.ok) {
-                    // Успешная отправка
-                    document.getElementById('formSuccess').style.display = 'block';
-                    document.getElementById('formError').style.display = 'none';
-                    
-                    // Очистить форму
-                    this.reset();
-                    
-                    // Скрыть сообщение через 5 секунд
-                    setTimeout(() => {
-                        document.getElementById('formSuccess').style.display = 'none';
-                    }, 5000);
-                } else {
-                    // Ошибка отправки
-                    throw new Error('Ошибка отправки формы');
-                }
-            } catch (error) {
-                // Ошибка сети или сервера
-                document.getElementById('formError').style.display = 'block';
-                document.getElementById('formSuccess').style.display = 'none';
-                
-                // Скрыть сообщение об ошибке через 5 секунд
-                setTimeout(() => {
-                    document.getElementById('formError').style.display = 'none';
-                }, 5000);
-                
-                console.error('Ошибка отправки формы:', error);
-            } finally {
-                // Восстановить кнопку
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-            }
-        });
-        
         // Работа с FAQ
         document.querySelectorAll('.faq-question').forEach(question => {
             question.addEventListener('click', function() {
@@ -942,16 +786,6 @@
             });
         });
         
-        // Маска для телефона
-        document.getElementById('phone').addEventListener('input', function(e) {
-            let value = e.target.value.replace(/\D/g, '');
-            
-            if (value.length > 0) {
-                value = value.match(/(\d{0,1})(\d{0,3})(\d{0,3})(\d{0,2})(\d{0,2})/);
-                e.target.value = !value[2] ? value[1] : '+7 (' + value[2] + ') ' + value[3] + (value[4] ? '-' + value[4] : '') + (value[5] ? '-' + value[5] : '');
-            }
-        });
-        
         // Анимация при наведении на контактные карточки
         document.querySelectorAll('.contact-card').forEach(card => {
             card.addEventListener('mouseenter', function() {
@@ -964,17 +798,6 @@
                 const icon = this.querySelector('.contact-card-icon');
                 icon.style.transform = 'scale(1)';
             });
-        });
-        
-        // Валидация email
-        document.getElementById('email').addEventListener('blur', function() {
-            const email = this.value;
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (email && !emailRegex.test(email)) {
-                this.style.borderColor = '#dc3545';
-            } else {
-                this.style.borderColor = '#ddd';
-            }
         });
     </script>
 </body>
