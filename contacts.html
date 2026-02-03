@@ -518,6 +518,24 @@
                 padding: 25px;
             }
         }
+        .form-link-button {
+    display: block;
+    background-color: #ff6600;
+    color: white;
+    text-decoration: none;
+    padding: 16px 24px;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+    transition: all 0.3s;
+    margin-top: 10px;
+}
+
+.form-link-button:hover {
+    background-color: #e55a00;
+    box-shadow: 0 5px 15px rgba(255, 102, 0, 0.2);
+}
     </style>
 </head>
 <body>
@@ -629,17 +647,16 @@
                     </p>
                     
                     <!-- Форма Google Forms -->
-                    <div class="google-form-container">
-                        <!-- ЗАМЕНИТЕ ЭТОТ URL НА СВОЙ URL ФОРМЫ GOOGLE -->
-                        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSflYkwuSH6GIEsDSYoZmb2CaEw3Dj1GvlPqaSJEJirkvfNnxA/viewform?usp=dialog" 
-                                width="100%" 
-                                height="650" 
-                                frameborder="0" 
-                                marginheight="0" 
-                                marginwidth="0">
-                            Загрузка формы...
-                        </iframe>
-                    </div>
+                <div class="form-link-container">
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLS.../viewform" 
+       target="_blank" 
+       class="form-link-button">
+        📝 Открыть форму обратной связи
+    </a>
+    <p style="margin-top: 10px; color: #666; font-size: 14px;">
+        Нажмите кнопку выше, чтобы открыть форму в новом окне
+    </p>
+</div>
                 </div>
             </div>
             
