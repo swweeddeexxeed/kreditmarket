@@ -13,7 +13,7 @@
         }
         
         body {
-            background-color: #ffffff;
+            background-color: #f5f5f5;
             color: #000000;
             line-height: 1.6;
         }
@@ -40,6 +40,7 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 15px;
+            flex-wrap: wrap;
         }
         
         .logo {
@@ -67,6 +68,12 @@
             margin-top: 10px;
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            justify-content: center;
+        }
+        
+        .nav::-webkit-scrollbar {
+            display: none;
         }
         
         .nav-item {
@@ -94,6 +101,9 @@
         .contacts-container {
             padding: 40px 0;
             min-height: 70vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         
         .contacts-title {
@@ -102,6 +112,8 @@
             color: #000000;
             border-left: 5px solid #ff6600;
             padding-left: 15px;
+            width: 100%;
+            max-width: 1200px;
         }
         
         /* Основной контент контактов */
@@ -110,14 +122,17 @@
             grid-template-columns: 1fr 1fr;
             gap: 40px;
             margin-bottom: 60px;
+            width: 100%;
+            max-width: 1200px;
         }
         
         /* Левая колонка - контактная информация */
         .contact-info {
-            background-color: #f9f9f9;
+            background-color: #ffffff;
             border-radius: 16px;
             padding: 30px;
             border: 1px solid #eee;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
         }
         
         .info-title {
@@ -228,7 +243,7 @@
             border-radius: 16px;
             padding: 30px;
             border: 1px solid #eee;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
         }
         
         .form-title {
@@ -281,24 +296,14 @@
             border-radius: 8px;
             font-size: 16px;
             transition: all 0.3s;
-            background-color: white;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-        }
-        
-        .form-select {
-            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-            background-repeat: no-repeat;
-            background-position: right 16px center;
-            background-size: 16px;
-            padding-right: 40px;
+            background-color: #fafafa;
         }
         
         .form-input:focus, .form-textarea:focus, .form-select:focus {
             outline: none;
             border-color: #ff6600;
             box-shadow: 0 0 0 3px rgba(255, 102, 0, 0.1);
+            background-color: white;
         }
         
         .form-textarea {
@@ -322,41 +327,21 @@
             -webkit-tap-highlight-color: transparent;
         }
         
-        .form-submit:hover, .form-submit:active {
+        .form-submit:hover {
             background-color: #e55a00;
+            transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(255, 102, 0, 0.2);
         }
         
-        .form-submit:disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
-            box-shadow: none;
-        }
-        
-        /* Сообщения формы */
-        .form-success {
-            background-color: #d4edda;
-            color: #155724;
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 20px;
-            display: none;
-            font-size: 15px;
-        }
-        
-        .form-error {
-            background-color: #f8d7da;
-            color: #721c24;
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 20px;
-            display: none;
-            font-size: 15px;
+        .form-submit:active {
+            transform: translateY(0);
         }
         
         /* Карта */
         .map-section {
             margin-top: 40px;
+            width: 100%;
+            max-width: 1200px;
         }
         
         .map-title {
@@ -401,6 +386,8 @@
         /* Дополнительные контакты */
         .additional-contacts {
             margin-top: 60px;
+            width: 100%;
+            max-width: 1200px;
         }
         
         .section-title {
@@ -421,7 +408,7 @@
             border-radius: 12px;
             padding: 25px;
             text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
             border: 1px solid #eee;
             transition: all 0.3s;
             display: flex;
@@ -481,9 +468,12 @@
         /* FAQ */
         .faq-section {
             margin-top: 60px;
-            background-color: #f9f9f9;
+            background-color: #ffffff;
             border-radius: 16px;
             padding: 40px;
+            width: 100%;
+            max-width: 1200px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
         }
         
         .faq-title {
@@ -549,6 +539,7 @@
             color: white;
             padding: 40px 0;
             margin-top: 60px;
+            width: 100%;
         }
         
         .footer-container {
@@ -593,7 +584,25 @@
             width: 100%;
         }
         
-        /* Адаптивность */
+        /* Анимация загрузки */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s linear infinite;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+        
+        /* Адаптивность для планшетов */
         @media (max-width: 992px) {
             .contacts-content {
                 grid-template-columns: 1fr;
@@ -603,12 +612,22 @@
             .container {
                 padding: 0 15px;
             }
+            
+            .map-container {
+                height: 350px;
+            }
+            
+            .contacts-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
         }
         
+        /* Адаптивность для мобильных устройств */
         @media (max-width: 768px) {
             .top-bar {
                 flex-direction: column;
-                align-items: flex-start;
+                align-items: center;
+                text-align: center;
                 gap: 10px;
             }
             
@@ -617,18 +636,23 @@
             }
             
             .nav {
-                padding: 4px;
-                margin-top: 8px;
+                width: 100%;
+                padding: 5px 2px;
+                justify-content: flex-start;
             }
             
             .nav-item {
-                padding: 10px 16px;
+                padding: 10px 15px;
                 font-size: 14px;
             }
             
             .contacts-title {
-                font-size: 28px;
-                margin-bottom: 25px;
+                font-size: 26px;
+                text-align: center;
+                border-left: none;
+                padding-left: 0;
+                border-bottom: 3px solid #ff6600;
+                padding-bottom: 10px;
             }
             
             .contact-info, .contact-form-section {
@@ -639,17 +663,47 @@
             .info-title, .form-title {
                 font-size: 22px;
                 margin-bottom: 20px;
+                text-align: center;
+            }
+            
+            .info-title:after, .form-title:after {
+                left: 50%;
+                transform: translateX(-50%);
             }
             
             .contact-item {
                 flex-direction: column;
-                align-items: flex-start;
-                gap: 10px;
+                align-items: center;
+                text-align: center;
+                gap: 15px;
             }
             
             .contact-icon {
                 margin-right: 0;
                 margin-bottom: 10px;
+            }
+            
+            .contact-text {
+                width: 100%;
+            }
+            
+            .contact-label {
+                text-align: center;
+            }
+            
+            .contact-value {
+                text-align: center;
+            }
+            
+            .hours-table {
+                width: 100%;
+            }
+            
+            .hours-table td {
+                display: block;
+                width: 100%;
+                text-align: center;
+                padding: 8px 0;
             }
             
             .map-container {
@@ -658,6 +712,10 @@
             
             .map-icon {
                 font-size: 60px;
+            }
+            
+            .map-text {
+                font-size: 16px;
             }
             
             .faq-section {
@@ -680,6 +738,10 @@
                 font-size: 16px;
             }
             
+            .form-description {
+                text-align: center;
+            }
+            
             .contacts-grid {
                 grid-template-columns: 1fr;
                 gap: 20px;
@@ -688,28 +750,60 @@
             .contact-card {
                 padding: 20px;
             }
+            
+            .section-title {
+                font-size: 24px;
+            }
+            
+            .faq-question {
+                padding: 15px;
+                font-size: 16px;
+            }
+            
+            .faq-answer {
+                padding: 0 15px;
+                font-size: 14px;
+            }
+            
+            .faq-item.active .faq-answer {
+                padding: 0 15px 15px 15px;
+            }
         }
         
+        /* Адаптивность для маленьких мобильных */
         @media (max-width: 480px) {
             .logo {
                 font-size: 24px;
             }
             
             .contacts-title {
-                font-size: 24px;
-                padding-left: 10px;
+                font-size: 22px;
             }
             
-            .info-title, .form-title {
+            .info-title, .form-title, .section-title, .faq-title {
                 font-size: 20px;
             }
             
-            .section-title {
-                font-size: 24px;
+            .map-text {
+                font-size: 15px;
             }
             
-            .map-text {
-                font-size: 16px;
+            .contact-info, .contact-form-section, .faq-section {
+                padding: 15px;
+            }
+            
+            .contact-card {
+                padding: 15px;
+            }
+            
+            .contact-card-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 25px;
+            }
+            
+            .contact-card-title {
+                font-size: 18px;
             }
             
             .footer-container {
@@ -719,24 +813,15 @@
             
             .footer-section {
                 min-width: 100%;
+                text-align: center;
             }
         }
         
         /* Улучшения для тач-устройств */
         @media (hover: none) and (pointer: coarse) {
-            .nav-item:hover {
-                background-color: inherit;
-                color: inherit;
-            }
-            
-            .nav-item:active {
-                background-color: #fff5e6;
-                color: #ff6600;
-            }
-            
             .contact-card:hover {
                 transform: none;
-                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
             }
             
             .contact-card:active {
@@ -746,10 +831,13 @@
             
             .form-submit:hover {
                 background-color: #ff6600;
+                transform: none;
+                box-shadow: none;
             }
             
             .form-submit:active {
                 background-color: #e55a00;
+                transform: scale(0.98);
             }
         }
         
@@ -763,22 +851,33 @@
             outline-offset: 2px;
         }
         
-        /* Анимация загрузки */
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        /* Сообщения формы */
+        .form-message {
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            display: none;
+            font-size: 15px;
+            text-align: center;
         }
         
-        .loading-spinner {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            border-top-color: white;
-            animation: spin 1s linear infinite;
-            margin-right: 8px;
-            vertical-align: middle;
+        .form-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .form-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .field-error {
+            font-size: 14px;
+            color: #dc3545;
+            margin-top: 5px;
+            display: none;
         }
     </style>
 </head>
@@ -860,7 +959,7 @@
                     
                     <!-- График работы -->
                     <div class="hours-section">
-                        <h3 class="info-title" style="font-size: 20px;">График работы</h3>
+                        <h3 class="info-title" style="font-size: 20px; text-align: left;">График работы</h3>
                         <table class="hours-table">
                             <tr>
                                 <td>Понедельник - Пятница</td>
@@ -896,21 +995,21 @@
                             <label for="name" class="form-label">Ваше имя *</label>
                             <input type="text" id="name" name="name" class="form-input" required 
                                    placeholder="Введите ваше имя" minlength="2" maxlength="50">
-                            <div class="form-error" id="nameError" style="display: none; font-size: 14px; color: #dc3545; margin-top: 5px;"></div>
+                            <div class="field-error" id="nameError"></div>
                         </div>
                         
                         <div class="form-group">
                             <label for="phone" class="form-label">Телефон *</label>
                             <input type="tel" id="phone" name="phone" class="form-input" required 
-                                   placeholder="+7 (999) 123-45-67" pattern="\+7\s?\(?\d{3}\)?\s?\d{3}[- ]?\d{2}[- ]?\d{2}">
-                            <div class="form-error" id="phoneError" style="display: none; font-size: 14px; color: #dc3545; margin-top: 5px;"></div>
+                                   placeholder="+7 (999) 123-45-67">
+                            <div class="field-error" id="phoneError"></div>
                         </div>
                         
                         <div class="form-group">
                             <label for="email" class="form-label">Электронная почта *</label>
                             <input type="email" id="email" name="email" class="form-input" required 
                                    placeholder="example@mail.ru">
-                            <div class="form-error" id="emailError" style="display: none; font-size: 14px; color: #dc3545; margin-top: 5px;"></div>
+                            <div class="field-error" id="emailError"></div>
                         </div>
                         
                         <div class="form-group">
@@ -928,7 +1027,7 @@
                             <label for="message" class="form-label">Сообщение *</label>
                             <textarea id="message" name="message" class="form-textarea" required 
                                       placeholder="Напишите ваше сообщение..." minlength="10" maxlength="1000"></textarea>
-                            <div class="form-error" id="messageError" style="display: none; font-size: 14px; color: #dc3545; margin-top: 5px;"></div>
+                            <div class="field-error" id="messageError"></div>
                         </div>
                         
                         <button type="submit" class="form-submit" id="submitBtn">
@@ -939,10 +1038,10 @@
                         </button>
                         
                         <!-- Сообщения об успехе/ошибке -->
-                        <div id="formSuccess" class="form-success" style="display: none;">
+                        <div id="formSuccess" class="form-message form-success" style="display: none;">
                             ✅ Спасибо! Ваше сообщение отправлено. Мы свяжемся с вами в ближайшее время.
                         </div>
-                        <div id="formError" class="form-error" style="display: none;">
+                        <div id="formError" class="form-message form-error" style="display: none;">
                             ❌ Произошла ошибка при отправке. Пожалуйста, попробуйте еще раз.
                         </div>
                     </form>
@@ -1090,13 +1189,19 @@
             // Инициализация маски телефона
             initPhoneMask();
             
-            // Проверка поддержки localStorage
-            if (typeof(Storage) !== "undefined") {
-                console.log('localStorage поддерживается');
-            } else {
-                console.log('localStorage не поддерживается');
-            }
+            // Адаптивная настройка заголовков
+            setupResponsiveTitles();
         });
+        
+        // Настройка адаптивных заголовков
+        function setupResponsiveTitles() {
+            if (window.innerWidth <= 768) {
+                // Центрировать заголовки на мобильных
+                document.querySelectorAll('.info-title, .form-title, .map-title, .section-title, .faq-title').forEach(title => {
+                    title.style.textAlign = 'center';
+                });
+            }
+        }
         
         // Инициализация FAQ
         function initFAQ() {
@@ -1115,10 +1220,17 @@
                     // Открываем текущий, если он был закрыт
                     if (!isActive) {
                         faqItem.classList.add('active');
+                        
+                        // На мобильных - прокрутить к открытому FAQ
+                        if (window.innerWidth <= 768) {
+                            setTimeout(() => {
+                                faqItem.scrollIntoView({ 
+                                    behavior: 'smooth', 
+                                    block: 'center' 
+                                });
+                            }, 300);
+                        }
                     }
-                    
-                    // Фокус для доступности
-                    this.focus();
                 });
                 
                 // Поддержка клавиатуры
@@ -1161,23 +1273,8 @@
             
             // Валидация телефона при потере фокуса
             phoneInput.addEventListener('blur', function() {
-                validatePhone(this.value);
+                validateField(this);
             });
-        }
-        
-        // Валидация телефона
-        function validatePhone(phone) {
-            const phoneRegex = /^\+7\s?\(?\d{3}\)?\s?\d{3}[- ]?\d{2}[- ]?\d{2}$/;
-            const phoneError = document.getElementById('phoneError');
-            
-            if (!phoneRegex.test(phone)) {
-                phoneError.textContent = 'Введите корректный номер телефона';
-                phoneError.style.display = 'block';
-                return false;
-            } else {
-                phoneError.style.display = 'none';
-                return true;
-            }
         }
         
         // Инициализация формы
@@ -1211,15 +1308,13 @@
                         email: document.getElementById('email').value.trim(),
                         subject: document.getElementById('subject').value,
                         message: document.getElementById('message').value.trim(),
-                        timestamp: new Date().toISOString(),
-                        userAgent: navigator.userAgent,
-                        screenSize: `${window.innerWidth}x${window.innerHeight}`
+                        timestamp: new Date().toISOString()
                     };
                     
-                    // Вариант 1: Сохранение в localStorage (работает везде)
+                    // Сохранение в localStorage
                     saveToLocalStorage(formData);
                     
-                    // Вариант 2: Имитация отправки на сервер
+                    // Имитация отправки на сервер
                     await simulateServerRequest(formData);
                     
                     // Показать успех
@@ -1228,25 +1323,9 @@
                     // Очистить форму
                     form.reset();
                     
-                    // Прокрутить к успешному сообщению на мобильных
-                    if (window.innerWidth < 768) {
-                        document.getElementById('formSuccess').scrollIntoView({ 
-                            behavior: 'smooth', 
-                            block: 'center' 
-                        });
-                    }
-                    
                 } catch (error) {
                     console.error('Ошибка отправки:', error);
                     showError();
-                    
-                    // Прокрутить к ошибке на мобильных
-                    if (window.innerWidth < 768) {
-                        document.getElementById('formError').scrollIntoView({ 
-                            behavior: 'smooth', 
-                            block: 'center' 
-                        });
-                    }
                 } finally {
                     // Скрыть индикатор загрузки
                     submitBtn.disabled = false;
@@ -1256,7 +1335,7 @@
             });
             
             // Валидация в реальном времени
-            const inputs = form.querySelectorAll('input, textarea, select');
+            const inputs = form.querySelectorAll('input, textarea');
             inputs.forEach(input => {
                 input.addEventListener('blur', function() {
                     validateField(this);
@@ -1277,69 +1356,92 @@
         function validateField(field) {
             const errorElement = document.getElementById(field.id + 'Error');
             
-            if (!errorElement) return;
+            if (!errorElement) return true;
             
             // Сбросить ошибку
+            errorElement.textContent = '';
             errorElement.style.display = 'none';
+            
+            let isValid = true;
+            let errorMessage = '';
             
             // Проверка обязательных полей
             if (field.hasAttribute('required') && !field.value.trim()) {
-                errorElement.textContent = 'Это поле обязательно для заполнения';
-                errorElement.style.display = 'block';
-                return false;
+                errorMessage = 'Это поле обязательно для заполнения';
+                isValid = false;
             }
             
             // Проверка email
-            if (field.type === 'email' && field.value) {
+            else if (field.type === 'email' && field.value) {
                 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                 if (!emailRegex.test(field.value)) {
-                    errorElement.textContent = 'Введите корректный email';
-                    errorElement.style.display = 'block';
-                    return false;
+                    errorMessage = 'Введите корректный email';
+                    isValid = false;
                 }
             }
             
             // Проверка телефона
-            if (field.id === 'phone' && field.value) {
-                return validatePhone(field.value);
+            else if (field.id === 'phone' && field.value) {
+                const phoneRegex = /^\+7\s?\(?\d{3}\)?\s?\d{3}[- ]?\d{2}[- ]?\d{2}$/;
+                if (!phoneRegex.test(field.value)) {
+                    errorMessage = 'Введите корректный номер телефона';
+                    isValid = false;
+                }
             }
             
             // Проверка длины
-            if (field.hasAttribute('minlength') && field.value.length < field.getAttribute('minlength')) {
-                errorElement.textContent = `Минимальная длина: ${field.getAttribute('minlength')} символов`;
-                errorElement.style.display = 'block';
-                return false;
+            else if (field.hasAttribute('minlength') && field.value.length < field.getAttribute('minlength')) {
+                errorMessage = `Минимальная длина: ${field.getAttribute('minlength')} символов`;
+                isValid = false;
             }
             
-            return true;
+            if (!isValid) {
+                errorElement.textContent = errorMessage;
+                errorElement.style.display = 'block';
+                
+                // На мобильных - выделить поле с ошибкой
+                if (window.innerWidth <= 768) {
+                    field.style.borderColor = '#dc3545';
+                    field.style.backgroundColor = '#fff5f5';
+                }
+            } else {
+                // Убрать выделение ошибки
+                field.style.borderColor = '#ddd';
+                field.style.backgroundColor = '#fafafa';
+            }
+            
+            return isValid;
         }
         
         // Валидация всей формы
         function validateForm() {
             let isValid = true;
+            let firstErrorField = null;
             
-            const requiredFields = [
-                'name',
-                'phone', 
-                'email',
-                'message'
-            ];
+            const requiredFields = ['name', 'phone', 'email', 'message'];
             
             requiredFields.forEach(fieldId => {
                 const field = document.getElementById(fieldId);
                 if (!validateField(field)) {
                     isValid = false;
                     
-                    // Прокрутить к первой ошибке на мобильных
-                    if (window.innerWidth < 768 && isValid === false) {
-                        field.scrollIntoView({ 
-                            behavior: 'smooth', 
-                            block: 'center' 
-                        });
-                        field.focus();
+                    // Запомнить первое поле с ошибкой
+                    if (!firstErrorField) {
+                        firstErrorField = field;
                     }
                 }
             });
+            
+            // Прокрутить к первой ошибке на мобильных
+            if (!isValid && firstErrorField && window.innerWidth <= 768) {
+                setTimeout(() => {
+                    firstErrorField.scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'center' 
+                    });
+                    firstErrorField.focus();
+                }, 100);
+            }
             
             return isValid;
         }
@@ -1347,25 +1449,18 @@
         // Сохранение в localStorage
         function saveToLocalStorage(formData) {
             try {
-                // Получить существующие заявки или создать новый массив
                 let applications = JSON.parse(localStorage.getItem('kreditmarket_applications')) || [];
-                
-                // Добавить новую заявку
                 applications.push(formData);
                 
-                // Сохранить (ограничить до 100 заявок)
                 if (applications.length > 100) {
                     applications = applications.slice(-100);
                 }
                 
                 localStorage.setItem('kreditmarket_applications', JSON.stringify(applications));
-                
-                console.log('Заявка сохранена в localStorage. Всего заявок:', applications.length);
-                console.log('Последняя заявка:', formData);
+                console.log('Заявка сохранена. Всего заявок:', applications.length);
                 
             } catch (error) {
-                console.error('Ошибка сохранения в localStorage:', error);
-                throw error;
+                console.error('Ошибка сохранения:', error);
             }
         }
         
@@ -1373,15 +1468,13 @@
         function simulateServerRequest(formData) {
             return new Promise((resolve, reject) => {
                 setTimeout(() => {
-                    // 90% успешных отправок, 10% ошибок (для тестирования)
                     const isSuccess = Math.random() > 0.1;
-                    
                     if (isSuccess) {
                         resolve(formData);
                     } else {
                         reject(new Error('Сервер временно недоступен'));
                     }
-                }, 1500); // Имитация задержки сети
+                }, 1500);
             });
         }
         
@@ -1398,9 +1491,19 @@
                 successElement.style.display = 'none';
             }, 10000);
             
-            // Виброотклик на мобильных (если поддерживается)
+            // Виброотклик на мобильных
             if (window.navigator.vibrate && window.innerWidth < 768) {
                 window.navigator.vibrate(200);
+            }
+            
+            // Прокрутить к сообщению на мобильных
+            if (window.innerWidth <= 768) {
+                setTimeout(() => {
+                    successElement.scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'center' 
+                    });
+                }, 100);
             }
         }
         
@@ -1417,7 +1520,7 @@
                 errorElement.style.display = 'none';
             }, 10000);
             
-            // Виброотклик на мобильных (если поддерживается)
+            // Виброотклик на мобильных
             if (window.navigator.vibrate && window.innerWidth < 768) {
                 window.navigator.vibrate([100, 50, 100]);
             }
@@ -1429,118 +1532,47 @@
             document.getElementById('formError').style.display = 'none';
             
             // Скрыть все ошибки полей
-            const fieldErrors = document.querySelectorAll('.form-error');
-            fieldErrors.forEach(error => {
-                if (error.id !== 'formSuccess' && error.id !== 'formError') {
-                    error.style.display = 'none';
-                }
+            document.querySelectorAll('.field-error').forEach(error => {
+                error.style.display = 'none';
+            });
+            
+            // Сбросить стили полей
+            document.querySelectorAll('.form-input, .form-textarea').forEach(field => {
+                field.style.borderColor = '#ddd';
+                field.style.backgroundColor = '#fafafa';
             });
         }
         
-        // Вспомогательные функции для ссылок
+        // Вспомогательные функции
         function openChat() {
             alert('Чат будет открыт в новом окне. В демо-версии эта функция имитируется.');
-            
-            // Имитация открытия чата
-            const chatWindow = window.open('', '_blank', 'width=400,height=600');
-            if (chatWindow) {
-                chatWindow.document.write(`
-                    <html>
-                    <head><title>Онлайн-чат КредитMarket</title></head>
-                    <body style="padding: 20px; font-family: Arial;">
-                        <h2>Онлайн-чат поддержки</h2>
-                        <p>Здравствуйте! Чем можем помочь?</p>
-                        <div id="chatMessages" style="height: 400px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; margin: 10px 0;"></div>
-                        <input type="text" id="chatInput" placeholder="Введите сообщение..." style="width: 100%; padding: 10px;">
-                        <button onclick="sendMessage()" style="margin-top: 10px; padding: 10px 20px;">Отправить</button>
-                        <script>
-                            function sendMessage() {
-                                const input = document.getElementById('chatInput');
-                                const messages = document.getElementById('chatMessages');
-                                if (input.value) {
-                                    messages.innerHTML += '<p><strong>Вы:</strong> ' + input.value + '</p>';
-                                    input.value = '';
-                                    setTimeout(() => {
-                                        messages.innerHTML += '<p><strong>Поддержка:</strong> Спасибо за сообщение! Мы ответим в ближайшее время.</p>';
-                                        messages.scrollTop = messages.scrollHeight;
-                                    }, 1000);
-                                }
-                            }
-                        </script>
-                    </body>
-                    </html>
-                `);
-            }
         }
         
         function downloadApp() {
-            alert('Мобильное приложение доступно в App Store и Google Play. В демо-версии ссылки имитируются.');
-            
-            // Определить устройство пользователя
-            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-            const isAndroid = /Android/.test(navigator.userAgent);
-            
-            let storeUrl;
-            if (isIOS) {
-                storeUrl = 'https://apps.apple.com/ru/app/';
-            } else if (isAndroid) {
-                storeUrl = 'https://play.google.com/store/apps/';
-            } else {
-                storeUrl = 'https://kreditmarket.ru/app';
-            }
-            
-            // Открыть в новом окне
-            window.open(storeUrl, '_blank');
+            alert('Мобильное приложение доступно в App Store и Google Play.');
         }
         
-        // Анимация при наведении на контактные карточки
-        document.querySelectorAll('.contact-card').forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                if (window.innerWidth >= 768) {
-                    const icon = this.querySelector('.contact-card-icon');
-                    icon.style.transform = 'scale(1.1)';
-                    icon.style.transition = 'transform 0.3s';
+        // Обработка изменения размера окна
+        window.addEventListener('resize', function() {
+            setupResponsiveTitles();
+        });
+        
+        // Адаптивное поведение для тач-устройств
+        document.querySelectorAll('.contact-card, .faq-question, .nav-item').forEach(element => {
+            element.addEventListener('touchstart', function() {
+                if (window.innerWidth <= 768) {
+                    this.style.opacity = '0.8';
+                    this.style.transform = 'scale(0.98)';
                 }
             });
             
-            card.addEventListener('mouseleave', function() {
-                if (window.innerWidth >= 768) {
-                    const icon = this.querySelector('.contact-card-icon');
-                    icon.style.transform = 'scale(1)';
-                }
-            });
-            
-            // На мобильных - эффект при касании
-            card.addEventListener('touchstart', function() {
-                if (window.innerWidth < 768) {
-                    this.style.transform = 'translateY(-2px)';
-                }
-            });
-            
-            card.addEventListener('touchend', function() {
-                if (window.innerWidth < 768) {
-                    this.style.transform = 'translateY(0)';
+            element.addEventListener('touchend', function() {
+                if (window.innerWidth <= 768) {
+                    this.style.opacity = '';
+                    this.style.transform = '';
                 }
             });
         });
-        
-        // Адаптивная навигация для тач-устройств
-        if (window.innerWidth < 768) {
-            const navItems = document.querySelectorAll('.nav-item');
-            navItems.forEach(item => {
-                item.addEventListener('touchstart', function() {
-                    this.style.backgroundColor = '#fff5e6';
-                    this.style.color = '#ff6600';
-                });
-                
-                item.addEventListener('touchend', function() {
-                    if (!this.classList.contains('active')) {
-                        this.style.backgroundColor = '';
-                        this.style.color = '';
-                    }
-                });
-            });
-        }
     </script>
 </body>
 </html>
