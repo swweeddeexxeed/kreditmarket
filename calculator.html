@@ -13,8 +13,9 @@
         }
         
         body {
-            background-color: #ffffff;
+            background-color: #f5f5f5;
             color: #000000;
+            min-height: 100vh;
         }
         
         /* Шапка */
@@ -23,6 +24,9 @@
             border-bottom: 2px solid #ff6600;
             padding: 15px 0;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
         
         .container {
@@ -36,6 +40,7 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 15px;
+            flex-wrap: wrap;
         }
         
         .logo {
@@ -61,6 +66,13 @@
             border-radius: 8px;
             padding: 5px;
             margin-top: 10px;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+        
+        .nav::-webkit-scrollbar {
+            display: none;
         }
         
         .nav-item {
@@ -71,6 +83,7 @@
             border-radius: 6px;
             transition: all 0.3s;
             margin: 0 2px;
+            white-space: nowrap;
         }
         
         .nav-item:hover {
@@ -87,6 +100,9 @@
         .calculator-container {
             padding: 40px 0;
             min-height: 70vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         
         .calculator-title {
@@ -95,6 +111,8 @@
             color: #000000;
             border-left: 5px solid #ff6600;
             padding-left: 15px;
+            width: 100%;
+            max-width: 1200px;
         }
         
         /* Основной контент */
@@ -103,6 +121,8 @@
             grid-template-columns: 1fr 1fr;
             gap: 40px;
             margin-bottom: 50px;
+            width: 100%;
+            max-width: 1200px;
         }
         
         /* Левая колонка - калькулятор */
@@ -111,7 +131,7 @@
             border-radius: 16px;
             padding: 30px;
             border: 1px solid #eee;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
         }
         
         .section-title {
@@ -165,6 +185,7 @@
             background: #eee;
             border-radius: 4px;
             outline: none;
+            cursor: pointer;
         }
         
         .range-slider::-webkit-slider-thumb {
@@ -176,7 +197,12 @@
             border-radius: 50%;
             cursor: pointer;
             border: 3px solid white;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s;
+        }
+        
+        .range-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
         }
         
         .range-slider::-moz-range-thumb {
@@ -186,7 +212,7 @@
             border-radius: 50%;
             cursor: pointer;
             border: 3px solid white;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         }
         
         .range-minmax {
@@ -195,22 +221,6 @@
             font-size: 14px;
             color: #777;
             margin-top: 5px;
-        }
-        
-        /* Поле ввода числа */
-        .number-input {
-            width: 100%;
-            padding: 14px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: all 0.3s;
-        }
-        
-        .number-input:focus {
-            outline: none;
-            border-color: #ff6600;
-            box-shadow: 0 0 0 3px rgba(255, 102, 0, 0.1);
         }
         
         /* Тип платежа */
@@ -230,6 +240,7 @@
             cursor: pointer;
             transition: all 0.3s;
             font-weight: 500;
+            -webkit-tap-highlight-color: transparent;
         }
         
         .payment-option:hover {
@@ -239,6 +250,7 @@
         .payment-option.active {
             background-color: #ff6600;
             color: white;
+            transform: scale(0.98);
         }
         
         /* Кнопка расчета */
@@ -254,19 +266,26 @@
             cursor: pointer;
             transition: all 0.3s;
             margin-top: 10px;
+            -webkit-tap-highlight-color: transparent;
         }
         
         .calculate-btn:hover {
             background-color: #e55a00;
+            transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(255, 102, 0, 0.2);
+        }
+        
+        .calculate-btn:active {
+            transform: translateY(0);
         }
         
         /* Правая колонка - результаты */
         .results-section {
-            background-color: #f9f9f9;
+            background-color: white;
             border-radius: 16px;
             padding: 30px;
             border: 1px solid #eee;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
         }
         
         .results-placeholder {
@@ -277,6 +296,7 @@
             height: 100%;
             color: #666;
             text-align: center;
+            padding: 40px 20px;
         }
         
         .results-icon {
@@ -319,11 +339,17 @@
         }
         
         .result-item {
-            background-color: white;
+            background-color: #f9f9f9;
             border-radius: 10px;
             padding: 20px;
             text-align: center;
             border: 1px solid #eee;
+            transition: all 0.3s;
+        }
+        
+        .result-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
         }
         
         .result-value {
@@ -389,6 +415,8 @@
         /* Быстрые расчеты */
         .quick-calculations {
             margin-top: 60px;
+            width: 100%;
+            max-width: 1200px;
         }
         
         .quick-grid {
@@ -407,6 +435,7 @@
             border: 1px solid #eee;
             transition: all 0.3s;
             cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
         }
         
         .quick-card:hover {
@@ -426,6 +455,13 @@
             margin: 0 auto 20px;
             color: #ff6600;
             font-size: 30px;
+            transition: all 0.3s;
+        }
+        
+        .quick-card:hover .quick-icon {
+            transform: scale(1.1);
+            background-color: #ff6600;
+            color: white;
         }
         
         .quick-title {
@@ -448,6 +484,8 @@
             padding: 25px;
             margin-top: 40px;
             border-left: 5px solid #ff6600;
+            width: 100%;
+            max-width: 1200px;
         }
         
         .info-title {
@@ -469,6 +507,8 @@
             margin-top: 15px;
             font-family: monospace;
             border: 1px solid #eee;
+            font-size: 14px;
+            overflow-x: auto;
         }
         
         /* Футер */
@@ -477,6 +517,7 @@
             color: white;
             padding: 40px 0;
             margin-top: 60px;
+            width: 100%;
         }
         
         .footer-container {
@@ -516,8 +557,10 @@
             border-top: 1px solid #444;
             color: #aaa;
             font-size: 14px;
+            width: 100%;
         }
         
+        /* Адаптивность для планшетов */
         @media (max-width: 992px) {
             .calculator-content {
                 grid-template-columns: 1fr;
@@ -527,12 +570,27 @@
             .results-grid {
                 grid-template-columns: 1fr;
             }
+            
+            .quick-grid {
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            }
+            
+            .calculator-section, .results-section {
+                padding: 25px;
+            }
         }
         
+        /* Адаптивность для мобильных устройств */
         @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+            
             .top-bar {
                 flex-direction: column;
-                align-items: flex-start;
+                align-items: center;
+                text-align: center;
+                gap: 10px;
             }
             
             .tagline {
@@ -540,16 +598,218 @@
             }
             
             .nav {
-                overflow-x: auto;
+                width: 100%;
+                padding: 5px 2px;
+                justify-content: flex-start;
+            }
+            
+            .nav-item {
+                padding: 10px 15px;
+                font-size: 14px;
+            }
+            
+            .calculator-title {
+                font-size: 26px;
+                text-align: center;
+                border-left: none;
+                padding-left: 0;
+                border-bottom: 3px solid #ff6600;
+                padding-bottom: 10px;
+            }
+            
+            .section-title {
+                font-size: 22px;
+                text-align: center;
+            }
+            
+            .section-title:after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            
+            .calculator-section, .results-section {
+                padding: 20px;
+            }
+            
+            .input-label {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+            }
+            
+            .value-display {
+                font-size: 16px;
+                align-self: flex-end;
+            }
+            
+            .payment-type {
+                flex-direction: column;
+                gap: 5px;
+            }
+            
+            .payment-option {
+                padding: 10px;
+                font-size: 14px;
+            }
+            
+            .calculate-btn {
+                padding: 14px;
+                font-size: 16px;
+            }
+            
+            .results-placeholder {
+                padding: 30px 15px;
+            }
+            
+            .results-icon {
+                font-size: 60px;
+            }
+            
+            .results-placeholder h3 {
+                font-size: 20px;
+            }
+            
+            .results-title {
+                font-size: 20px;
+            }
+            
+            .result-value {
+                font-size: 24px;
             }
             
             .schedule-table {
                 display: block;
                 overflow-x: auto;
+                white-space: nowrap;
             }
             
-            .payment-type {
+            .schedule-table th,
+            .schedule-table td {
+                padding: 10px;
+                font-size: 13px;
+            }
+            
+            .quick-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .quick-card {
+                padding: 20px;
+            }
+            
+            .quick-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 25px;
+            }
+            
+            .calculation-info {
+                padding: 20px;
+            }
+            
+            .info-title {
+                font-size: 18px;
+            }
+            
+            .formula {
+                font-size: 12px;
+                padding: 10px;
+            }
+        }
+        
+        /* Адаптивность для маленьких мобильных */
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 24px;
+            }
+            
+            .calculator-title {
+                font-size: 22px;
+            }
+            
+            .section-title {
+                font-size: 20px;
+            }
+            
+            .results-placeholder h3 {
+                font-size: 18px;
+            }
+            
+            .result-item {
+                padding: 15px;
+            }
+            
+            .result-value {
+                font-size: 22px;
+            }
+            
+            .quick-title {
+                font-size: 16px;
+            }
+            
+            .footer-container {
                 flex-direction: column;
+                gap: 20px;
+            }
+            
+            .footer-section {
+                min-width: 100%;
+                text-align: center;
+            }
+        }
+        
+        /* Анимации */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+        
+        /* Улучшения для тач-устройств */
+        @media (hover: none) and (pointer: coarse) {
+            .payment-option:hover {
+                background-color: inherit;
+            }
+            
+            .payment-option:active {
+                background-color: #fff5e6;
+            }
+            
+            .payment-option.active:active {
+                background-color: #ff6600;
+            }
+            
+            .quick-card:hover {
+                transform: none;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            }
+            
+            .quick-card:active {
+                transform: translateY(-2px);
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            }
+            
+            .calculate-btn:hover {
+                background-color: #ff6600;
+                transform: none;
+                box-shadow: none;
+            }
+            
+            .calculate-btn:active {
+                background-color: #e55a00;
+                transform: scale(0.98);
+            }
+            
+            .result-item:hover {
+                transform: none;
+            }
+            
+            .result-item:active {
+                transform: translateY(-3px);
             }
         }
     </style>
@@ -564,14 +824,14 @@
             </div>
             
             <nav class="nav">
-                 <a href="index.html" class="nav-item ">Главная</a>
-                   <a href="catalog.html" class="nav-item ">Каталог</a>
+                <a href="index.html" class="nav-item">Главная</a>
+                <a href="catalog.html" class="nav-item">Каталог</a>
                 <a href="credits.html" class="nav-item">Кредиты</a>
                 <a href="calculator.html" class="nav-item active">Калькулятор</a>
                 <a href="cart.html" class="nav-item">Корзина</a>
-                <a href="about.html" class="nav-item  " >О нас</a>
+                <a href="about.html" class="nav-item">О нас</a>
                 <a href="contacts.html" class="nav-item">Контакты</a>
-                    <a href="profile.html" class="nav-item">Профиль</a>
+                <a href="profile.html" class="nav-item">Профиль</a>
             </nav>
         </div>
     </header>
@@ -584,7 +844,7 @@
             <!-- Основной контент -->
             <div class="calculator-content">
                 <!-- Левая колонка - калькулятор -->
-                <div class="calculator-section">
+                <div class="calculator-section fade-in">
                     <h2 class="section-title">Расчет кредита</h2>
                     
                     <div class="input-group">
@@ -643,7 +903,7 @@
                 </div>
                 
                 <!-- Правая колонка - результаты -->
-                <div class="results-section">
+                <div class="results-section fade-in">
                     <div class="results-placeholder" id="resultsPlaceholder">
                         <div class="results-icon">🧮</div>
                         <h3>Результаты расчета</h3>
@@ -700,15 +960,27 @@
             </div>
             
             <!-- Быстрые расчеты -->
-            <div class="quick-calculations">
+            <div class="quick-calculations fade-in">
                 <h2 class="section-title">Популярные расчеты</h2>
-                <p style="color: #666; margin-bottom: 20px;">Выберите один из популярных сценариев для быстрого расчета</p>
+                <p style="color: #666; margin-bottom: 20px; text-align: center;">Выберите один из популярных сценариев для быстрого расчета</p>
                 
                 <div class="quick-grid">
                     <div class="quick-card" data-preset="consumer">
                         <div class="quick-icon">💵</div>
                         <h3 class="quick-title">Потребительский кредит</h3>
                         <p class="quick-description">Кредит наличными на любые цели. Ставка от 12%, срок до 5 лет</p>
+                    </div>
+                    
+                    <div class="quick-card" data-preset="mortgage">
+                        <div class="quick-icon">🏠</div>
+                        <h3 class="quick-title">Ипотека</h3>
+                        <p class="quick-description">Ипотека с господдержкой. Ставка от 5.5%, срок до 30 лет</p>
+                    </div>
+                    
+                    <div class="quick-card" data-preset="car">
+                        <div class="quick-icon">🚗</div>
+                        <h3 class="quick-title">Автокредит</h3>
+                        <p class="quick-description">Покупка автомобиля. Ставка от 7.9%, срок до 7 лет</p>
                     </div>
                     
                     <div class="quick-card" data-preset="refinance">
@@ -720,7 +992,7 @@
             </div>
             
             <!-- Информация о расчете -->
-            <div class="calculation-info">
+            <div class="calculation-info fade-in">
                 <h3 class="info-title">О расчете кредита</h3>
                 <p class="info-text">Калькулятор рассчитывает аннуитетные платежи — равные ежемесячные выплаты по кредиту, которые включают сумму на погашение кредита и начисленные проценты.</p>
                 <p class="info-text">При дифференцированных платежах сумма ежемесячного платежа уменьшается к концу срока кредита, так как проценты начисляются на остаток долга.</p>
@@ -745,11 +1017,10 @@
                 <div class="footer-section">
                     <h3 class="footer-title">Категории</h3>
                     <div class="footer-links">
-                        <a href="#">Потребительские кредиты</a>
-                        <a href="#">Ипотека</a>
-                        <a href="#">Автокредиты</a>
-                        <a href="#">Кредитные карты</a>
-                        <a href="#">Рефинансирование</a>
+                        <a href="javascript:void(0);" onclick="loadPreset('consumer')">Потребительские кредиты</a>
+                        <a href="javascript:void(0);" onclick="loadPreset('mortgage')">Ипотека</a>
+                        <a href="javascript:void(0);" onclick="loadPreset('car')">Автокредиты</a>
+                        <a href="javascript:void(0);" onclick="loadPreset('refinance')">Рефинансирование</a>
                     </div>
                 </div>
                 
@@ -758,7 +1029,7 @@
                     <div class="footer-links">
                         <a href="tel:+78001234567">8 (800) 123-45-67</a>
                         <a href="mailto:info@kreditmarket.ru">info@kreditmarket.ru</a>
-                        <a href="#">г. Москва, ул. Финансовая, 15</a>
+                        <a href="javascript:void(0);">г. Москва, ул. Финансовая, 15</a>
                     </div>
                 </div>
             </div>
@@ -770,223 +1041,264 @@
     </footer>
 
     <script>
-        // Элементы DOM
-        const amountSlider = document.getElementById('amountSlider');
-        const amountValue = document.getElementById('amountValue');
-        const termSlider = document.getElementById('termSlider');
-        const termValue = document.getElementById('termValue');
-        const rateSlider = document.getElementById('rateSlider');
-        const rateValue = document.getElementById('rateValue');
-        const calculateBtn = document.getElementById('calculateBtn');
-        const resultsPlaceholder = document.getElementById('resultsPlaceholder');
-        const calculationResults = document.getElementById('calculationResults');
-        const monthlyPaymentEl = document.getElementById('monthlyPayment');
-        const totalAmountEl = document.getElementById('totalAmount');
-        const overpaymentEl = document.getElementById('overpayment');
-        const overpaymentPercentEl = document.getElementById('overpaymentPercent');
-        const paymentSchedule = document.getElementById('paymentSchedule');
-        const paymentOptions = document.querySelectorAll('.payment-option');
-        const quickCards = document.querySelectorAll('.quick-card');
-        
-        // Текущие значения
-        let amount = 500000;
-        let term = 36;
-        let rate = 12.5;
-        let paymentType = 'annuity'; // 'annuity' или 'differentiated'
-        
-        // Форматирование чисел
-        function formatCurrency(value) {
-            return new Intl.NumberFormat('ru-RU', { 
-                style: 'currency', 
-                currency: 'RUB',
-                minimumFractionDigits: 0,
-                maximumFractionDigits: 0
-            }).format(value);
-        }
-        
-        function formatNumber(value) {
-            return new Intl.NumberFormat('ru-RU').format(value);
-        }
-        
-        // Обновление отображения значений
-        function updateDisplay() {
-            amountValue.textContent = formatCurrency(amount);
-            termValue.textContent = `${term} ${getMonthWord(term)}`;
-            rateValue.textContent = `${rate}%`;
-        }
-        
-        function getMonthWord(months) {
-            const lastDigit = months % 10;
-            const lastTwoDigits = months % 100;
+        // Инициализация при загрузке страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Кредитный калькулятор загружен');
             
-            if (lastTwoDigits >= 11 && lastTwoDigits <= 19) {
-                return 'месяцев';
-            } else if (lastDigit === 1) {
-                return 'месяц';
-            } else if (lastDigit >= 2 && lastDigit <= 4) {
-                return 'месяца';
-            } else {
-                return 'месяцев';
+            // Инициализация элементов
+            initCalculator();
+            
+            // Выполняем начальный расчет
+            performCalculation();
+            
+            // Адаптивная настройка
+            setupResponsiveDesign();
+        });
+
+        // Настройка адаптивного дизайна
+        function setupResponsiveDesign() {
+            // Центрирование заголовков на мобильных
+            if (window.innerWidth <= 768) {
+                document.querySelectorAll('.section-title').forEach(title => {
+                    title.style.textAlign = 'center';
+                });
             }
         }
-        
-        // Расчет аннуитетного платежа
-        function calculateAnnuityPayment(principal, annualRate, months) {
-            const monthlyRate = annualRate / 100 / 12;
-            const coefficient = (monthlyRate * Math.pow(1 + monthlyRate, months)) / 
-                               (Math.pow(1 + monthlyRate, months) - 1);
-            return principal * coefficient;
-        }
-        
-        // Расчет дифференцированного платежа
-        function calculateDifferentiatedPayment(principal, annualRate, month, months) {
-            const monthlyRate = annualRate / 100 / 12;
-            const principalPart = principal / months;
-            const interestPart = (principal - (month - 1) * principalPart) * monthlyRate;
-            return principalPart + interestPart;
-        }
-        
-        // Расчет общего графика платежей
-        function calculatePaymentSchedule(principal, annualRate, months, type) {
-            const schedule = [];
-            let remainingPrincipal = principal;
-            const monthlyRate = annualRate / 100 / 12;
+
+        // Инициализация калькулятора
+        function initCalculator() {
+            // Элементы DOM
+            const amountSlider = document.getElementById('amountSlider');
+            const amountValue = document.getElementById('amountValue');
+            const termSlider = document.getElementById('termSlider');
+            const termValue = document.getElementById('termValue');
+            const rateSlider = document.getElementById('rateSlider');
+            const rateValue = document.getElementById('rateValue');
+            const calculateBtn = document.getElementById('calculateBtn');
+            const paymentOptions = document.querySelectorAll('.payment-option');
+            const quickCards = document.querySelectorAll('.quick-card');
             
-            for (let month = 1; month <= months; month++) {
-                let principalPart, interestPart, payment;
+            // Текущие значения
+            let amount = 500000;
+            let term = 36;
+            let rate = 12.5;
+            let paymentType = 'annuity';
+            
+            // Форматирование чисел
+            function formatCurrency(value) {
+                return new Intl.NumberFormat('ru-RU', { 
+                    style: 'currency', 
+                    currency: 'RUB',
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0
+                }).format(value);
+            }
+            
+            // Обновление отображения значений
+            function updateDisplay() {
+                amountValue.textContent = formatCurrency(amount);
+                termValue.textContent = `${term} ${getMonthWord(term)}`;
+                rateValue.textContent = `${rate.toFixed(1)}%`;
+            }
+            
+            function getMonthWord(months) {
+                const lastDigit = months % 10;
+                const lastTwoDigits = months % 100;
                 
-                if (type === 'annuity') {
-                    payment = calculateAnnuityPayment(principal, annualRate, months);
-                    interestPart = remainingPrincipal * monthlyRate;
-                    principalPart = payment - interestPart;
+                if (lastTwoDigits >= 11 && lastTwoDigits <= 19) {
+                    return 'месяцев';
+                } else if (lastDigit === 1) {
+                    return 'месяц';
+                } else if (lastDigit >= 2 && lastDigit <= 4) {
+                    return 'месяца';
                 } else {
-                    // Дифференцированный платеж
-                    principalPart = principal / months;
-                    interestPart = remainingPrincipal * monthlyRate;
-                    payment = principalPart + interestPart;
+                    return 'месяцев';
+                }
+            }
+            
+            // Расчет аннуитетного платежа
+            function calculateAnnuityPayment(principal, annualRate, months) {
+                const monthlyRate = annualRate / 100 / 12;
+                const coefficient = (monthlyRate * Math.pow(1 + monthlyRate, months)) / 
+                                   (Math.pow(1 + monthlyRate, months) - 1);
+                return principal * coefficient;
+            }
+            
+            // Расчет дифференцированного платежа
+            function calculateDifferentiatedPayment(principal, annualRate, month, months) {
+                const monthlyRate = annualRate / 100 / 12;
+                const principalPart = principal / months;
+                const interestPart = (principal - (month - 1) * principalPart) * monthlyRate;
+                return principalPart + interestPart;
+            }
+            
+            // Расчет общего графика платежей
+            function calculatePaymentSchedule(principal, annualRate, months, type) {
+                const schedule = [];
+                let remainingPrincipal = principal;
+                const monthlyRate = annualRate / 100 / 12;
+                
+                for (let month = 1; month <= months; month++) {
+                    let principalPart, interestPart, payment;
+                    
+                    if (type === 'annuity') {
+                        payment = calculateAnnuityPayment(principal, annualRate, months);
+                        interestPart = remainingPrincipal * monthlyRate;
+                        principalPart = payment - interestPart;
+                    } else {
+                        // Дифференцированный платеж
+                        principalPart = principal / months;
+                        interestPart = remainingPrincipal * monthlyRate;
+                        payment = principalPart + interestPart;
+                    }
+                    
+                    remainingPrincipal -= principalPart;
+                    
+                    schedule.push({
+                        month,
+                        payment,
+                        principalPart,
+                        interestPart,
+                        remainingPrincipal: remainingPrincipal > 0 ? remainingPrincipal : 0
+                    });
                 }
                 
-                remainingPrincipal -= principalPart;
+                return schedule;
+            }
+            
+            // Выполнение расчета
+            window.performCalculation = function() {
+                // Показываем результаты
+                document.getElementById('resultsPlaceholder').style.display = 'none';
+                document.getElementById('calculationResults').style.display = 'block';
                 
-                schedule.push({
-                    month,
-                    payment,
-                    principalPart,
-                    interestPart,
-                    remainingPrincipal: remainingPrincipal > 0 ? remainingPrincipal : 0
+                // Расчет основных показателей
+                let monthlyPayment, totalPayment, overpayment, overpaymentPercent;
+                
+                if (paymentType === 'annuity') {
+                    monthlyPayment = calculateAnnuityPayment(amount, rate, term);
+                    totalPayment = monthlyPayment * term;
+                    overpayment = totalPayment - amount;
+                    overpaymentPercent = (overpayment / amount * 100).toFixed(1);
+                    
+                    document.getElementById('monthlyPayment').textContent = formatCurrency(monthlyPayment);
+                } else {
+                    // Для дифференцированного платежа
+                    const firstMonthPayment = calculateDifferentiatedPayment(amount, rate, 1, term);
+                    const lastMonthPayment = calculateDifferentiatedPayment(amount, rate, term, term);
+                    
+                    // Расчет общей суммы через график платежей
+                    const schedule = calculatePaymentSchedule(amount, rate, term, 'differentiated');
+                    totalPayment = schedule.reduce((sum, item) => sum + item.payment, 0);
+                    overpayment = totalPayment - amount;
+                    overpaymentPercent = (overpayment / amount * 100).toFixed(1);
+                    
+                    // Для дифференцированного показываем диапазон платежей
+                    document.getElementById('monthlyPayment').innerHTML = 
+                        `${formatCurrency(firstMonthPayment)}<br><small style="font-size: 14px; color: #666;">первый месяц</small>`;
+                }
+                
+                // Обновление результатов
+                document.getElementById('totalAmount').textContent = formatCurrency(totalPayment);
+                document.getElementById('overpayment').textContent = formatCurrency(overpayment);
+                document.getElementById('overpaymentPercent').textContent = `${overpaymentPercent}%`;
+                
+                // Обновление графика платежей
+                updatePaymentSchedule();
+                
+                // Прокрутка к результатам на мобильных
+                if (window.innerWidth <= 768) {
+                    setTimeout(() => {
+                        document.getElementById('calculationResults').scrollIntoView({ 
+                            behavior: 'smooth', 
+                            block: 'center' 
+                        });
+                    }, 300);
+                }
+            };
+            
+            // Обновление графика платежей
+            function updatePaymentSchedule() {
+                const schedule = calculatePaymentSchedule(amount, rate, Math.min(term, 6), paymentType);
+                const tbody = document.getElementById('paymentSchedule').querySelector('tbody');
+                tbody.innerHTML = '';
+                
+                schedule.forEach(item => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${item.month}</td>
+                        <td>${formatCurrency(item.payment)}</td>
+                        <td>${formatCurrency(item.principalPart)}</td>
+                        <td>${formatCurrency(item.interestPart)}</td>
+                        <td>${formatCurrency(item.remainingPrincipal)}</td>
+                    `;
+                    tbody.appendChild(row);
                 });
             }
             
-            return schedule;
-        }
-        
-        // Выполнение расчета
-        function performCalculation() {
-            // Показываем результаты
-            resultsPlaceholder.style.display = 'none';
-            calculationResults.style.display = 'block';
-            
-            // Расчет основных показателей
-            let monthlyPayment, totalPayment, overpayment, overpaymentPercent;
-            
-            if (paymentType === 'annuity') {
-                monthlyPayment = calculateAnnuityPayment(amount, rate, term);
-                totalPayment = monthlyPayment * term;
-                overpayment = totalPayment - amount;
-                overpaymentPercent = (overpayment / amount * 100).toFixed(1);
-            } else {
-                // Для дифференцированного платежа берем первый месяц как максимальный платеж
-                const firstMonthPayment = calculateDifferentiatedPayment(amount, rate, 1, term);
-                const lastMonthPayment = calculateDifferentiatedPayment(amount, rate, term, term);
-                monthlyPayment = firstMonthPayment; // Показываем платеж первого месяца
+            // Обработчики событий для слайдеров
+            amountSlider.addEventListener('input', function() {
+                amount = parseInt(this.value);
+                updateDisplay();
                 
-                // Расчет общей суммы через график платежей
-                const schedule = calculatePaymentSchedule(amount, rate, term, 'differentiated');
-                totalPayment = schedule.reduce((sum, item) => sum + item.payment, 0);
-                overpayment = totalPayment - amount;
-                overpaymentPercent = (overpayment / amount * 100).toFixed(1);
-                
-                // Для дифференцированного показываем диапазон платежей
-                monthlyPaymentEl.innerHTML = `${formatCurrency(firstMonthPayment)} - ${formatCurrency(lastMonthPayment)}`;
-            }
-            
-            // Обновление основных результатов
-            if (paymentType === 'annuity') {
-                monthlyPaymentEl.textContent = formatCurrency(monthlyPayment);
-            }
-            
-            totalAmountEl.textContent = formatCurrency(totalPayment);
-            overpaymentEl.textContent = formatCurrency(overpayment);
-            overpaymentPercentEl.textContent = `${overpaymentPercent}%`;
-            
-            // Обновление графика платежей
-            updatePaymentSchedule();
-        }
-        
-        // Обновление графика платежей
-        function updatePaymentSchedule() {
-            const schedule = calculatePaymentSchedule(amount, rate, Math.min(term, 6), paymentType);
-            const tbody = paymentSchedule.querySelector('tbody');
-            tbody.innerHTML = '';
-            
-            schedule.forEach(item => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${item.month}</td>
-                    <td>${formatCurrency(item.payment)}</td>
-                    <td>${formatCurrency(item.principalPart)}</td>
-                    <td>${formatCurrency(item.interestPart)}</td>
-                    <td>${formatCurrency(item.remainingPrincipal)}</td>
-                `;
-                tbody.appendChild(row);
-            });
-        }
-        
-        // Обработчики событий для слайдеров
-        amountSlider.addEventListener('input', function() {
-            amount = parseInt(this.value);
-            updateDisplay();
-        });
-        
-        termSlider.addEventListener('input', function() {
-            term = parseInt(this.value);
-            updateDisplay();
-        });
-        
-        rateSlider.addEventListener('input', function() {
-            rate = parseFloat(this.value);
-            updateDisplay();
-        });
-        
-        // Обработчики для типа платежа
-        paymentOptions.forEach(option => {
-            option.addEventListener('click', function() {
-                paymentOptions.forEach(opt => opt.classList.remove('active'));
-                this.classList.add('active');
-                paymentType = this.dataset.type;
-                
-                // Если уже были рассчитаны результаты - пересчитываем
-                if (calculationResults.style.display === 'block') {
+                // На мобильных - расчет при изменении
+                if (window.innerWidth <= 768) {
                     performCalculation();
                 }
             });
-        });
-        
-        // Обработчик для кнопки расчета
-        calculateBtn.addEventListener('click', performCalculation);
-        
-        // Обработчики для быстрых расчетов
-        const presets = {
-            car: { amount: 1500000, term: 60, rate: 7.9 },
-            mortgage: { amount: 5000000, term: 240, rate: 8.5 },
-            consumer: { amount: 500000, term: 36, rate: 12 },
-            refinance: { amount: 1000000, term: 60, rate: 10.5 }
-        };
-        
-        quickCards.forEach(card => {
-            card.addEventListener('click', function() {
-                const preset = this.dataset.preset;
-                const config = presets[preset];
+            
+            termSlider.addEventListener('input', function() {
+                term = parseInt(this.value);
+                updateDisplay();
+                
+                if (window.innerWidth <= 768) {
+                    performCalculation();
+                }
+            });
+            
+            rateSlider.addEventListener('input', function() {
+                rate = parseFloat(this.value);
+                updateDisplay();
+                
+                if (window.innerWidth <= 768) {
+                    performCalculation();
+                }
+            });
+            
+            // Обработчики для типа платежа
+            paymentOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    paymentOptions.forEach(opt => opt.classList.remove('active'));
+                    this.classList.add('active');
+                    paymentType = this.dataset.type;
+                    
+                    // Пересчитываем
+                    performCalculation();
+                });
+            });
+            
+            // Обработчик для кнопки расчета
+            calculateBtn.addEventListener('click', performCalculation);
+            
+            // Быстрые пресеты
+            const presets = {
+                car: { amount: 1500000, term: 60, rate: 7.9 },
+                mortgage: { amount: 5000000, term: 240, rate: 8.5 },
+                consumer: { amount: 500000, term: 36, rate: 12.0 },
+                refinance: { amount: 1000000, term: 60, rate: 10.5 }
+            };
+            
+            // Обработчики для быстрых расчетов
+            quickCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const preset = this.dataset.preset;
+                    window.loadPreset(preset);
+                });
+            });
+            
+            // Глобальная функция для загрузки пресета
+            window.loadPreset = function(presetName) {
+                const config = presets[presetName];
                 
                 if (config) {
                     amount = config.amount;
@@ -1004,19 +1316,39 @@
                     // Выполняем расчет
                     performCalculation();
                     
-                    // Плавная прокрутка к результатам
-                    calculationResults.scrollIntoView({ behavior: 'smooth' });
+                    // Прокрутка к результатам
+                    setTimeout(() => {
+                        document.getElementById('calculationResults').scrollIntoView({ 
+                            behavior: 'smooth', 
+                            block: 'center' 
+                        });
+                    }, 100);
+                    
+                    // Виброотклик на мобильных
+                    if (window.navigator.vibrate && window.innerWidth < 768) {
+                        window.navigator.vibrate(50);
+                    }
                 }
+            };
+            
+            // Инициализация отображения
+            updateDisplay();
+            
+            // Тестовые функции для консоли
+            console.log('Доступные функции:');
+            console.log('loadPreset("car") - автокредит');
+            console.log('loadPreset("mortgage") - ипотека');
+            console.log('loadPreset("consumer") - потребительский кредит');
+            console.log('loadPreset("refinance") - рефинансирование');
+            console.log('performCalculation() - выполнить расчет');
+        }
+
+        // Обработка изменения размера окна
+        window.addEventListener('resize', function() {
+            // Центрирование заголовков на мобильных
+            document.querySelectorAll('.section-title').forEach(title => {
+                title.style.textAlign = window.innerWidth <= 768 ? 'center' : 'left';
             });
-        });
-        
-        // Инициализация
-        updateDisplay();
-        
-        // Автоматический расчет при загрузке
-        window.addEventListener('load', function() {
-            // Небольшая задержка для лучшего UX
-            setTimeout(performCalculation, 300);
         });
     </script>
 </body>
