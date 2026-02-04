@@ -13,8 +13,9 @@
         }
         
         body {
-            background-color: #ffffff;
+            background-color: #D3D3D3;
             color: #000000;
+            min-height: 100vh;
         }
         
         /* Шапка */
@@ -23,6 +24,9 @@
             border-bottom: 2px solid #ff6600;
             padding: 15px 0;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
         
         .container {
@@ -36,6 +40,7 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 15px;
+            flex-wrap: wrap;
         }
         
         .logo {
@@ -61,6 +66,13 @@
             border-radius: 8px;
             padding: 5px;
             margin-top: 10px;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+        
+        .nav::-webkit-scrollbar {
+            display: none;
         }
         
         .nav-item {
@@ -71,6 +83,7 @@
             border-radius: 6px;
             transition: all 0.3s;
             margin: 0 2px;
+            white-space: nowrap;
         }
         
         .nav-item:hover {
@@ -106,6 +119,7 @@
             display: flex;
             align-items: center;
             border: 1px solid #ffddb3;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
         }
         
         .hero-content {
@@ -140,17 +154,20 @@
             font-size: 100px;
             color: white;
             margin-left: 40px;
+            box-shadow: 0 6px 15px rgba(255, 102, 0, 0.3);
         }
         
         /* Статистика */
         .stats-section {
-            display: flex;
-            justify-content: space-around;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
             background-color: #222;
             border-radius: 16px;
             padding: 40px 20px;
             margin: 50px 0;
             color: white;
+            gap: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
         }
         
         .stat-item {
@@ -202,6 +219,10 @@
             font-size: 17px;
             line-height: 1.7;
             color: #555;
+            background-color: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
         }
         
         .values-grid {
@@ -215,14 +236,14 @@
             background-color: white;
             border-radius: 12px;
             padding: 25px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
             border: 1px solid #eee;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
         }
         
         .value-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
             border-color: #ff6600;
         }
         
@@ -258,6 +279,16 @@
         
         .team-member {
             text-align: center;
+            background-color: white;
+            border-radius: 12px;
+            padding: 25px 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+        
+        .team-member:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
         }
         
         .member-photo {
@@ -290,6 +321,7 @@
         .member-bio {
             color: #666;
             font-size: 14px;
+            line-height: 1.5;
         }
         
         /* CTA секция */
@@ -300,6 +332,7 @@
             text-align: center;
             color: white;
             margin-top: 60px;
+            box-shadow: 0 10px 25px rgba(255, 102, 0, 0.2);
         }
         
         .cta-title {
@@ -327,13 +360,14 @@
             cursor: pointer;
             transition: all 0.3s;
             display: inline-block;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
         
         .cta-button:hover {
             background-color: #222;
             color: white;
             transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
         }
         
         /* Футер */
@@ -383,10 +417,12 @@
             font-size: 14px;
         }
         
+        /* Адаптивность для планшетов */
         @media (max-width: 992px) {
             .hero-section {
                 flex-direction: column;
                 text-align: center;
+                padding: 40px 30px;
             }
             
             .hero-image {
@@ -394,13 +430,24 @@
                 margin-top: 30px;
                 width: 100%;
                 max-width: 300px;
+                height: 200px;
+                font-size: 80px;
             }
             
             .mission-content {
                 grid-template-columns: 1fr;
             }
+            
+            .stats-section {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .hero-title {
+                font-size: 32px;
+            }
         }
         
+        /* Адаптивность для мобильных */
         @media (max-width: 768px) {
             .top-bar {
                 flex-direction: column;
@@ -412,20 +459,125 @@
             }
             
             .nav {
-                overflow-x: auto;
+                width: 100%;
+                padding: 5px 2px;
+            }
+            
+            .nav-item {
+                padding: 10px 15px;
+                font-size: 14px;
+            }
+            
+            .hero-section {
+                padding: 30px 20px;
             }
             
             .hero-title {
                 font-size: 28px;
             }
             
+            .hero-description {
+                font-size: 16px;
+            }
+            
+            .about-title {
+                font-size: 26px;
+            }
+            
+            .section-title {
+                font-size: 24px;
+            }
+            
             .stats-section {
-                flex-direction: column;
+                grid-template-columns: 1fr;
+                padding: 30px 15px;
                 gap: 30px;
             }
             
-            .hero-section, .cta-section {
-                padding: 30px;
+            .stat-number {
+                font-size: 42px;
+            }
+            
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .team-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 20px;
+            }
+            
+            .member-photo {
+                width: 120px;
+                height: 120px;
+                font-size: 50px;
+            }
+            
+            .cta-section {
+                padding: 30px 20px;
+            }
+            
+            .cta-title {
+                font-size: 26px;
+            }
+            
+            .cta-description {
+                font-size: 16px;
+            }
+            
+            .cta-button {
+                padding: 14px 30px;
+                font-size: 16px;
+            }
+            
+            .footer-container {
+                flex-direction: column;
+            }
+        }
+        
+        /* Адаптивность для маленьких мобильных */
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .logo {
+                font-size: 24px;
+            }
+            
+            .tagline {
+                font-size: 12px;
+            }
+            
+            .nav-item {
+                padding: 8px 12px;
+                font-size: 13px;
+            }
+            
+            .hero-image {
+                height: 180px;
+                font-size: 70px;
+            }
+            
+            .hero-title {
+                font-size: 24px;
+            }
+            
+            .about-title {
+                font-size: 22px;
+            }
+            
+            .mission-text {
+                padding: 20px;
+                font-size: 16px;
+            }
+            
+            .value-card {
+                padding: 20px;
+            }
+            
+            .team-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -526,7 +678,7 @@
                     <div class="value-card">
                         <div class="value-icon">🛡️</div>
                         <h3 class="value-title">Безопасность</h3>
-                        <p class="value-description">Защита персональных данных и финансовой информации по最高 standards.</p>
+                        <p class="value-description">Защита персональных данных и финансовой информации по высшим стандартам.</p>
                     </div>
                     
                     <div class="value-card">
@@ -627,7 +779,8 @@
             const statNumbers = document.querySelectorAll('.stat-number');
             
             statNumbers.forEach(stat => {
-                const target = parseInt(stat.textContent);
+                const originalText = stat.textContent;
+                const target = parseInt(originalText);
                 let current = 0;
                 const increment = target / 50;
                 const timer = setInterval(() => {
@@ -636,7 +789,7 @@
                         current = target;
                         clearInterval(timer);
                     }
-                    stat.textContent = Math.floor(current) + (stat.textContent.includes('+') ? '+' : '');
+                    stat.textContent = Math.floor(current) + (originalText.includes('+') ? '+' : '');
                 }, 30);
             });
         }
@@ -649,6 +802,22 @@
             alert('Вы будете перенаправлены в каталог продуктов!');
             // В реальном приложении здесь был бы переход на страницу каталога
             window.location.href = '#';
+        });
+        
+        // Меню для мобильных
+        document.addEventListener('DOMContentLoaded', function() {
+            // Добавляем индикатор активного пункта меню
+            const currentPage = window.location.pathname.split('/').pop();
+            const navItems = document.querySelectorAll('.nav-item');
+            
+            navItems.forEach(item => {
+                const href = item.getAttribute('href');
+                if (href === currentPage || (currentPage === '' && href === 'index.html')) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
         });
     </script>
 </body>
