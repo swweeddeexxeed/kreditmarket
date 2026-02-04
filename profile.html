@@ -13,8 +13,9 @@
         }
         
         body {
-            background-color: #ffffff;
+            background-color: #f5f5f5;
             color: #000000;
+            min-height: 100vh;
         }
         
         /* Шапка */
@@ -23,6 +24,9 @@
             border-bottom: 2px solid #ff6600;
             padding: 15px 0;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
         
         .container {
@@ -36,6 +40,7 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 15px;
+            flex-wrap: wrap;
         }
         
         .logo {
@@ -61,6 +66,14 @@
             border-radius: 8px;
             padding: 5px;
             margin-top: 10px;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            justify-content: center;
+        }
+        
+        .nav::-webkit-scrollbar {
+            display: none;
         }
         
         .nav-item {
@@ -71,6 +84,7 @@
             border-radius: 6px;
             transition: all 0.3s;
             margin: 0 2px;
+            white-space: nowrap;
         }
         
         .nav-item:hover {
@@ -87,6 +101,9 @@
         .profile-container {
             padding: 40px 0;
             min-height: 70vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         
         .profile-title {
@@ -95,6 +112,8 @@
             color: #000000;
             border-left: 5px solid #ff6600;
             padding-left: 15px;
+            width: 100%;
+            max-width: 1200px;
         }
         
         /* Макет профиля */
@@ -102,16 +121,20 @@
             display: grid;
             grid-template-columns: 300px 1fr;
             gap: 30px;
+            width: 100%;
+            max-width: 1200px;
         }
         
         /* Боковое меню профиля */
         .profile-sidebar {
-            background-color: #f9f9f9;
+            background-color: #ffffff;
             border-radius: 16px;
             padding: 25px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
             border: 1px solid #eee;
             height: fit-content;
+            position: sticky;
+            top: 120px;
         }
         
         .profile-info {
@@ -190,7 +213,7 @@
             background-color: white;
             border-radius: 16px;
             padding: 30px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
             border: 1px solid #eee;
         }
         
@@ -227,12 +250,14 @@
             border-radius: 8px;
             font-size: 16px;
             transition: all 0.3s;
+            background-color: #fafafa;
         }
         
         .form-input:focus {
             outline: none;
             border-color: #ff6600;
             box-shadow: 0 0 0 2px rgba(255, 102, 0, 0.1);
+            background-color: white;
         }
         
         .full-width {
@@ -243,6 +268,7 @@
             display: flex;
             gap: 15px;
             margin-top: 20px;
+            flex-wrap: wrap;
         }
         
         .btn {
@@ -287,37 +313,43 @@
             border-radius: 12px;
             padding: 20px;
             transition: all 0.3s;
+            background-color: #fdfdfd;
         }
         
         .order-card:hover {
             border-color: #ff6600;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
         }
         
         .order-header {
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-start;
             margin-bottom: 15px;
             padding-bottom: 15px;
             border-bottom: 1px solid #eee;
+            flex-wrap: wrap;
+            gap: 15px;
         }
         
         .order-id {
             font-weight: 600;
             color: #333;
+            font-size: 18px;
         }
         
         .order-date {
             color: #666;
             font-size: 14px;
+            margin-top: 5px;
         }
         
         .order-status {
-            padding: 6px 12px;
+            padding: 8px 15px;
             border-radius: 20px;
-            font-size: 12px;
+            font-size: 14px;
             font-weight: 600;
+            white-space: nowrap;
         }
         
         .status-delivered {
@@ -357,15 +389,19 @@
             justify-content: center;
             color: #ff6600;
             font-size: 24px;
+            flex-shrink: 0;
         }
         
         .product-details {
             flex: 1;
+            min-width: 0; /* Для правильного обрезания текста */
         }
         
         .product-name {
             font-weight: 500;
             margin-bottom: 5px;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         
         .product-price {
@@ -379,6 +415,8 @@
             align-items: center;
             padding-top: 15px;
             border-top: 1px solid #eee;
+            flex-wrap: wrap;
+            gap: 15px;
         }
         
         .order-total {
@@ -389,6 +427,7 @@
         .order-actions {
             display: flex;
             gap: 10px;
+            flex-wrap: wrap;
         }
         
         /* Мои кредиты */
@@ -403,6 +442,7 @@
             border-radius: 12px;
             padding: 20px;
             transition: all 0.3s;
+            background-color: #fdfdfd;
         }
         
         .credit-item:hover {
@@ -414,6 +454,8 @@
             justify-content: space-between;
             align-items: flex-start;
             margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
         }
         
         .credit-name {
@@ -423,10 +465,11 @@
         }
         
         .credit-status {
-            padding: 4px 10px;
+            padding: 6px 12px;
             border-radius: 12px;
-            font-size: 11px;
+            font-size: 12px;
             font-weight: 600;
+            white-space: nowrap;
         }
         
         .status-active {
@@ -497,6 +540,9 @@
             border: 1px solid #eee;
             border-radius: 8px;
             margin-bottom: 10px;
+            background-color: #fafafa;
+            flex-wrap: wrap;
+            gap: 15px;
         }
         
         .toggle-switch {
@@ -504,6 +550,7 @@
             display: inline-block;
             width: 50px;
             height: 26px;
+            flex-shrink: 0;
         }
         
         .toggle-switch input {
@@ -542,50 +589,6 @@
         
         input:checked + .toggle-slider:before {
             transform: translateX(24px);
-        }
-        
-        /* Адаптивность */
-        @media (max-width: 992px) {
-            .profile-layout {
-                grid-template-columns: 1fr;
-            }
-            
-            .profile-sidebar {
-                margin-bottom: 20px;
-            }
-            
-            .personal-info-form {
-                grid-template-columns: 1fr;
-            }
-            
-            .full-width {
-                grid-column: span 1;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .top-bar {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            
-            .tagline {
-                margin-top: 5px;
-            }
-            
-            .nav {
-                overflow-x: auto;
-            }
-            
-            .order-header, .order-footer {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 10px;
-            }
-            
-            .credits-list {
-                grid-template-columns: 1fr;
-            }
         }
         
         /* Футер */
@@ -634,6 +637,236 @@
             color: #aaa;
             font-size: 14px;
         }
+        
+        /* Мобильное меню профиля (горизонтальное) */
+        .profile-mobile-menu {
+            display: none;
+            background-color: white;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            width: 100%;
+        }
+        
+        .mobile-menu-scroll {
+            display: flex;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+        
+        .mobile-menu-scroll::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .mobile-menu-item {
+            padding: 15px 20px;
+            white-space: nowrap;
+            font-weight: 500;
+            color: #333;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+            flex-shrink: 0;
+        }
+        
+        .mobile-menu-item.active {
+            color: #ff6600;
+            border-bottom-color: #ff6600;
+            background-color: #fff5e6;
+        }
+        
+        /* Адаптивность для планшетов */
+        @media (max-width: 992px) {
+            .profile-layout {
+                grid-template-columns: 250px 1fr;
+                gap: 20px;
+            }
+            
+            .personal-info-form {
+                grid-template-columns: 1fr;
+            }
+            
+            .full-width {
+                grid-column: span 1;
+            }
+            
+            .credits-list {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+            
+            .profile-sidebar {
+                padding: 20px;
+            }
+        }
+        
+        /* Адаптивность для мобильных устройств */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .top-bar {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: 10px;
+            }
+            
+            .tagline {
+                margin-top: 5px;
+            }
+            
+            .nav {
+                width: 100%;
+                padding: 5px 2px;
+                justify-content: flex-start;
+            }
+            
+            .nav-item {
+                padding: 10px 15px;
+                font-size: 14px;
+            }
+            
+            .profile-title {
+                font-size: 26px;
+                text-align: center;
+                border-left: none;
+                padding-left: 0;
+                border-bottom: 3px solid #ff6600;
+                padding-bottom: 10px;
+            }
+            
+            .profile-layout {
+                grid-template-columns: 1fr;
+                width: 100%;
+            }
+            
+            .profile-sidebar {
+                display: none;
+            }
+            
+            .profile-mobile-menu {
+                display: block;
+            }
+            
+            .profile-content {
+                padding: 20px;
+            }
+            
+            .content-title {
+                font-size: 22px;
+                text-align: center;
+            }
+            
+            .order-header, .order-footer {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .order-actions {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .order-actions .btn {
+                flex: 1;
+                text-align: center;
+                min-width: 140px;
+            }
+            
+            .credits-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .credit-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .form-buttons {
+                justify-content: center;
+            }
+            
+            .form-buttons .btn {
+                flex: 1;
+                min-width: 140px;
+                text-align: center;
+            }
+            
+            .settings-option {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .settings-option > div:first-child {
+                width: 100%;
+            }
+        }
+        
+        /* Адаптивность для маленьких мобильных */
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 24px;
+            }
+            
+            .tagline {
+                font-size: 12px;
+            }
+            
+            .nav-item {
+                padding: 8px 12px;
+                font-size: 13px;
+            }
+            
+            .profile-title {
+                font-size: 22px;
+            }
+            
+            .profile-content {
+                padding: 15px;
+            }
+            
+            .content-title {
+                font-size: 20px;
+            }
+            
+            .order-card, .credit-item {
+                padding: 15px;
+            }
+            
+            .product-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .product-image {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+            
+            .product-details {
+                width: 100%;
+            }
+            
+            .order-actions, .form-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .order-actions .btn, .form-buttons .btn {
+                width: 100%;
+            }
+            
+            .mobile-menu-item {
+                padding: 12px 15px;
+                font-size: 14px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -663,9 +896,20 @@
         <div class="profile-container">
             <h1 class="profile-title">Мой профиль</h1>
             
+            <!-- Мобильное меню (только для телефонов) -->
+            <div class="profile-mobile-menu">
+                <div class="mobile-menu-scroll">
+                    <div class="mobile-menu-item active" data-tab="personal">👤 Личные данные</div>
+                    <div class="mobile-menu-item" data-tab="orders">📦 Мои заказы</div>
+                    <div class="mobile-menu-item" data-tab="credits">💳 Мои кредиты</div>
+                    <div class="mobile-menu-item" data-tab="settings">⚙️ Настройки</div>
+                    <div class="mobile-menu-item" data-tab="logout">🚪 Выход</div>
+                </div>
+            </div>
+            
             <!-- Макет профиля -->
             <div class="profile-layout">
-                <!-- Боковое меню -->
+                <!-- Боковое меню (для компьютеров) -->
                 <aside class="profile-sidebar">
                     <div class="profile-info">
                         <div class="profile-avatar">ИИ</div>
@@ -1027,26 +1271,45 @@
     </footer>
 
     <script>
-        // Переключение между вкладками профиля
+        // Общая функция для переключения вкладок
+        function switchTab(tabId) {
+            // Удаляем активный класс у всех пунктов меню
+            document.querySelectorAll('.profile-menu-item, .mobile-menu-item').forEach(el => {
+                el.classList.remove('active');
+            });
+            
+            // Добавляем активный класс текущему пункту
+            document.querySelectorAll(`[data-tab="${tabId}"]`).forEach(el => {
+                el.classList.add('active');
+            });
+            
+            // Скрываем все вкладки
+            document.querySelectorAll('.profile-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Показываем выбранную вкладку
+            document.getElementById(tabId + '-tab').classList.add('active');
+            
+            // На мобильных устройствах прокручиваем к началу вкладки
+            if (window.innerWidth <= 768) {
+                document.getElementById(tabId + '-tab').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+        
+        // Переключение между вкладками профиля (десктоп меню)
         document.querySelectorAll('.profile-menu-item').forEach(item => {
             item.addEventListener('click', function() {
                 const tabId = this.getAttribute('data-tab');
-                
-                // Удаляем активный класс у всех пунктов меню
-                document.querySelectorAll('.profile-menu-item').forEach(el => {
-                    el.classList.remove('active');
-                });
-                
-                // Добавляем активный класс текущему пункту
-                this.classList.add('active');
-                
-                // Скрываем все вкладки
-                document.querySelectorAll('.profile-tab').forEach(tab => {
-                    tab.classList.remove('active');
-                });
-                
-                // Показываем выбранную вкладку
-                document.getElementById(tabId + '-tab').classList.add('active');
+                switchTab(tabId);
+            });
+        });
+        
+        // Переключение между вкладками профиля (мобильное меню)
+        document.querySelectorAll('.mobile-menu-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const tabId = this.getAttribute('data-tab');
+                switchTab(tabId);
             });
         });
         
@@ -1061,6 +1324,7 @@
         
         // Обработка сохранения личных данных
         document.querySelector('#personal-tab .btn-primary').addEventListener('click', function() {
+            const originalText = this.textContent;
             this.textContent = 'Сохранение...';
             this.disabled = true;
             
@@ -1069,7 +1333,7 @@
                 this.style.backgroundColor = '#4caf50';
                 
                 setTimeout(() => {
-                    this.textContent = 'Сохранить изменения';
+                    this.textContent = originalText;
                     this.disabled = false;
                     this.style.backgroundColor = '';
                 }, 2000);
@@ -1117,6 +1381,34 @@
             button.addEventListener('click', function() {
                 const creditName = this.closest('.credit-item').querySelector('.credit-name').textContent;
                 alert(`Откроется детальная информация о кредите "${creditName}".`);
+            });
+        });
+        
+        // Адаптация для мобильных устройств при загрузке
+        document.addEventListener('DOMContentLoaded', function() {
+            // Центрирование заголовков на мобильных
+            if (window.innerWidth <= 768) {
+                document.querySelectorAll('.content-title').forEach(title => {
+                    title.style.textAlign = 'center';
+                });
+            }
+            
+            // Обработка кнопки "Отмена" в форме личных данных
+            document.querySelector('#personal-tab .btn-secondary').addEventListener('click', function() {
+                document.querySelectorAll('#personal-tab .form-input').forEach(input => {
+                    if (input.type === 'text' || input.type === 'email' || input.type === 'tel') {
+                        input.value = input.defaultValue;
+                    }
+                });
+                alert('Изменения отменены. Все поля восстановлены к исходным значениям.');
+            });
+        });
+        
+        // Обработка изменения размера окна
+        window.addEventListener('resize', function() {
+            // Обновляем стили заголовков при изменении размера окна
+            document.querySelectorAll('.content-title').forEach(title => {
+                title.style.textAlign = window.innerWidth <= 768 ? 'center' : 'left';
             });
         });
     </script>
